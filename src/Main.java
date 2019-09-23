@@ -1,8 +1,9 @@
+import java.awt.AWTException;
+import java.awt.Robot;
 import java.util.Random;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.application.ConditionalFeature;
 import javafx.event.EventHandler;
 import javafx.geometry.Point3D;
 import javafx.scene.*;
@@ -22,6 +23,7 @@ public class Main extends Application {
 	private double yaw;
 	private double pitch;
 	private PerspectiveCamera camera;
+	private Scene scene;
 
 	@Override
 	public void start(Stage stage) {
@@ -65,7 +67,7 @@ public class Main extends Application {
 			group.getChildren().add(sphere);
 		}
 
-		Scene scene = new Scene(group, 1280, 720, true);
+		scene = new Scene(group, 1280, 720, true);
 		camera.setFieldOfView(70);
 		camera.setVerticalFieldOfView(true);
 		camera.setTranslateZ(-5);
@@ -74,7 +76,8 @@ public class Main extends Application {
 
 		stage.setTitle("Space Brawl Prototype");
 		stage.setScene(scene);
-		stage.setMaximized(true);
+		stage.setFullScreen(true);
+		scene.setCursor(Cursor.NONE);
 		stage.show();
 
 		new AnimationTimer() {
@@ -87,7 +90,7 @@ public class Main extends Application {
 					return;
 				}
 
-				update((now - lastUpdate) / 1000000000.0);
+				update((now - lastUpdate) / 1000000000.0, now);
 
 				lastUpdate = now;
 			}
@@ -98,18 +101,38 @@ public class Main extends Application {
 			public void handle(MouseEvent event) {
 				Main.mouseX = event.getScreenX();
 				Main.mouseY = event.getScreenY();
+
 			}
 		};
 
 		scene.setOnMouseMoved(handler);
 	}
 
-	private void update(double deltaTime) {
+	private void update(double deltaTime, long now) {
+		double middleX = scene.getWidth() / 2;
+		double middleY = scene.getHeight() / 2;
+
 		yaw += 0.1 * (mouseX - oldMouseX);
 		pitch += 0.1 * (mouseY - oldMouseY);
-		Rotate yawRotate = new Rotate(yaw, new Point3D(0, 1, 0));
-		Rotate pitchRotate = new Rotate(-pitch, new Point3D(1, 0, 0));
+		Rotate yawRotate = new Rotate(yaw, Rotate.Y_AXIS);
+		Rotate pitchRotate = new Rotate(-pitch, Rotate.X_AXIS);
+		camera.getTransforms().removeAll();
 		camera.getTransforms().setAll(yawRotate, pitchRotate);
+
+		// Unfortunately JavaFX didn't get Robot until Java 11
+		// and we'll be running on machines with only Java 8
+		// so we're using the AWT API for this
+		Platform.runLater(() -> {
+			try {
+				Robot robot = new Robot();
+				robot.mouseMove((int)middleX, (int)middleY);
+				mouseX = (int)middleX;
+				mouseY = (int)middleY;
+				oldMouseX = mouseX;
+				oldMouseY = mouseY;
+			} catch (AWTException e) {}
+		});
+
 		oldMouseX = mouseX;
 		oldMouseY = mouseY;
 	}
