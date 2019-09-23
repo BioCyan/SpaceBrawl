@@ -1,5 +1,6 @@
 import java.awt.AWTException;
 import java.awt.Robot;
+import java.util.ArrayList;
 import java.util.Random;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -11,7 +12,7 @@ import javafx.scene.input.*;
 import javafx.scene.paint.*;
 import javafx.scene.shape.*;
 import javafx.stage.Stage;
-import javafx.scene.transform.Rotate;
+import javafx.scene.transform.*;
 
 public class Main extends Application {
 	public static double mouseX;
@@ -24,9 +25,14 @@ public class Main extends Application {
 	private double pitch;
 	private PerspectiveCamera camera;
 	private Scene scene;
+	private Group group;
+	private ArrayList<Sphere> rocks;
+	private ArrayList<Sphere> shots;
 
 	@Override
 	public void start(Stage stage) {
+		rocks = new ArrayList<Sphere>();
+		shots = new ArrayList<Sphere>();
 		camera = new PerspectiveCamera(true);
 
 		TriangleMesh mesh = new TriangleMesh();
@@ -51,7 +57,7 @@ public class Main extends Application {
 
 		AmbientLight aLight = new AmbientLight(Color.rgb(24, 24, 24));
 
-		Group group = new Group(camera, light, aLight);
+		group = new Group(camera, light, aLight);
 
 		Random random = new Random(1);
 		for (int i = 0; i < 32; i++) {
@@ -64,6 +70,7 @@ public class Main extends Application {
 			sphere.setTranslateX(x);
 			sphere.setTranslateY(y);
 			sphere.setTranslateZ(z);
+			rocks.add(sphere);
 			group.getChildren().add(sphere);
 		}
 
@@ -102,10 +109,24 @@ public class Main extends Application {
 				Main.mouseX = event.getScreenX();
 				Main.mouseY = event.getScreenY();
 
+				if (event.getEventType() == MouseEvent.MOUSE_CLICKED) {
+					Sphere shot = new Sphere(0.1);
+					PhongMaterial material = new PhongMaterial(Color.RED);
+					shot.setMaterial(material);
+
+					Transform transform = new Translate(0, 0, 1);
+					Transform camTransform = camera.getLocalToParentTransform();
+					transform = camTransform.createConcatenation(transform);
+					shot.getTransforms().setAll(transform);
+
+					shots.add(shot);
+					group.getChildren().add(shot);
+				}
 			}
 		};
 
 		scene.setOnMouseMoved(handler);
+		scene.setOnMouseClicked(handler);
 	}
 
 	private void update(double deltaTime, long now) {
@@ -135,6 +156,26 @@ public class Main extends Application {
 
 		oldMouseX = mouseX;
 		oldMouseY = mouseY;
+
+		for (Sphere shot : shots) {
+			Translate translate = new Translate(0, 0, 10*deltaTime);
+			Transform transform = shot.getLocalToParentTransform().createConcatenation(translate);
+			shot.getTransforms().setAll(transform);
+
+			ArrayList<Sphere> remove = new ArrayList<Sphere>();
+			for (Sphere rock : rocks) {
+				Point3D shotPos = transform.transform(Point3D.ZERO);
+				Point3D rockPos = rock.getLocalToParentTransform().transform(Point3D.ZERO);
+				if (shotPos.distance(rockPos) < rock.getRadius() + shot.getRadius()) {
+					group.getChildren().remove(shot);
+					remove.add(rock);
+				}
+			}
+			for (Sphere rock : remove) {
+				rocks.remove(rock);
+				group.getChildren().remove(rock);
+			}
+		}
 	}
 
 	public static void main(String[] args) {
