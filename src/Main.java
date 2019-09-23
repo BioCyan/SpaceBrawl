@@ -26,12 +26,13 @@ public class Main extends Application {
 	private PerspectiveCamera camera;
 	private Scene scene;
 	private Group group;
-	private ArrayList<Sphere> rocks;
+	private ArrayList<Rock> rocks;
 	private ArrayList<Sphere> shots;
+	private Random random;
 
 	@Override
 	public void start(Stage stage) {
-		rocks = new ArrayList<Sphere>();
+		rocks = new ArrayList<Rock>();
 		shots = new ArrayList<Sphere>();
 		camera = new PerspectiveCamera(true);
 
@@ -66,7 +67,8 @@ public class Main extends Application {
 			double z = random.nextDouble() * 10 - 5;
 			double radius = random.nextDouble() * 0.5;
 
-			Sphere sphere = new Sphere(radius);
+			//Sphere sphere = new Sphere(radius);
+			Rock sphere = new Rock(radius);
 			sphere.setTranslateX(x);
 			sphere.setTranslateY(y);
 			sphere.setTranslateZ(z);
@@ -133,6 +135,7 @@ public class Main extends Application {
 		double middleX = scene.getWidth() / 2;
 		double middleY = scene.getHeight() / 2;
 
+		System.out.println(yaw + " " + pitch);
 		yaw += 0.1 * (mouseX - oldMouseX);
 		pitch += 0.1 * (mouseY - oldMouseY);
 		Rotate yawRotate = new Rotate(yaw, Rotate.Y_AXIS);
@@ -162,8 +165,8 @@ public class Main extends Application {
 			Transform transform = shot.getLocalToParentTransform().createConcatenation(translate);
 			shot.getTransforms().setAll(transform);
 
-			ArrayList<Sphere> remove = new ArrayList<Sphere>();
-			for (Sphere rock : rocks) {
+			ArrayList<Node> remove = new ArrayList<Node>();
+			for (Rock rock : rocks) {
 				Point3D shotPos = transform.transform(Point3D.ZERO);
 				Point3D rockPos = rock.getLocalToParentTransform().transform(Point3D.ZERO);
 				if (shotPos.distance(rockPos) < rock.getRadius() + shot.getRadius()) {
@@ -171,7 +174,7 @@ public class Main extends Application {
 					remove.add(rock);
 				}
 			}
-			for (Sphere rock : remove) {
+			for (Node rock : remove) {
 				rocks.remove(rock);
 				group.getChildren().remove(rock);
 			}
@@ -180,5 +183,69 @@ public class Main extends Application {
 
 	public static void main(String[] args) {
 		Application.launch(args);
+	}
+}
+
+class Rock extends MeshView {
+	private double radius;
+	private Random random;
+
+	public Rock(double radius) {
+		super();
+		this.radius = radius;
+		random = new Random();
+		setMesh(buildMesh((float)radius));
+	}
+
+	public double getRadius() {
+		return radius;
+	}
+
+	private TriangleMesh buildMesh(float radius) {
+		TriangleMesh mesh = new TriangleMesh();
+		mesh.getTexCoords().addAll(0, 0);
+		mesh.getPoints().addAll(0, -genDistance(radius), 0);
+		mesh.getPoints().addAll(0, genDistance(radius), 0);
+		for (int i = 0; i < 10; i++) {
+			double yaw = 2 * Math.PI * i / 10;
+			for (int j = 1; j < 10; j++) {
+				double pitch = Math.PI * (-0.5 + (double)j / 10);
+
+				float distance = genDistance(radius);
+				float x = (float)Math.sin(yaw);
+				float z = (float)Math.cos(yaw);
+				float s = distance * (float)Math.cos(pitch);
+				x *= s;
+				z *= s;
+				float y = distance * (float)Math.sin(pitch);
+
+				mesh.getPoints().addAll(x, y, z);
+			}
+		}
+		for (int i = 0; i < 10; i++) {
+			mesh.getFaces().addAll(2 + i * 9, 0);
+			mesh.getFaces().addAll(0, 0);
+			mesh.getFaces().addAll(2 + (i + 1) % 10 * 9, 0);
+
+			for (int j = 0; j < 10 - 2; j++) {
+				mesh.getFaces().addAll(2 + i * 9 + j, 0);
+				mesh.getFaces().addAll(2 + (i + 1) % 10 * 9 + j, 0);
+				mesh.getFaces().addAll(2 + (i + 1) % 10 * 9 + j + 1, 0);
+
+				mesh.getFaces().addAll(2 + (i + 1) % 10 * 9 + j + 1, 0);
+				mesh.getFaces().addAll(2 + i * 9 + j + 1, 0);
+				mesh.getFaces().addAll(2 + i * 9 + j, 0);
+			}
+
+			mesh.getFaces().addAll(1, 0);
+			mesh.getFaces().addAll(2 + i * 9 + 8, 0);
+			mesh.getFaces().addAll(2 + (i + 1) % 10 * 9 + 8, 0);
+		}
+
+		return mesh;
+	}
+
+	private float genDistance(float radius) {
+		return radius - random.nextFloat() * radius * 0.2f;
 	}
 }
