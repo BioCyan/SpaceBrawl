@@ -11,6 +11,7 @@ import javafx.scene.*;
 import javafx.scene.input.*;
 import javafx.scene.paint.*;
 import javafx.scene.shape.*;
+import javafx.scene.text.*;
 import javafx.stage.Stage;
 import javafx.scene.transform.*;
 
@@ -24,11 +25,13 @@ public class Main extends Application {
 	private double yaw;
 	private double pitch;
 	private PerspectiveCamera camera;
-	private Scene scene;
+	private SubScene scene;
 	private Group group;
 	private ArrayList<Rock> rocks;
 	private ArrayList<Sphere> shots;
 	private Random random;
+	private int score;
+	private Text scoreText;
 
 	@Override
 	public void start(Stage stage) {
@@ -36,26 +39,8 @@ public class Main extends Application {
 		shots = new ArrayList<Sphere>();
 		camera = new PerspectiveCamera(true);
 
-		TriangleMesh mesh = new TriangleMesh();
-		mesh.getPoints().addAll(
-			0, 0, -1,
-			-1, -1, 1,
-			-1, 1, 1,
-			1, 1, 1,
-			1, -1, 1);
-		mesh.getTexCoords().addAll(0, 0);
-		mesh.getFaces().addAll(
-			0, 0, 1, 0, 2, 0,
-			0, 0, 2, 0, 3, 0,
-			0, 0, 3, 0, 4, 0,
-			0, 0, 4, 0, 1, 0,
-			3, 0, 2, 0, 1, 0,
-			1, 0, 4, 0, 3, 0);
-		MeshView view = new MeshView(mesh);
-
 		PointLight light = new PointLight();
 		light.setTranslateZ(-3);
-
 		AmbientLight aLight = new AmbientLight(Color.rgb(24, 24, 24));
 
 		group = new Group(camera, light, aLight);
@@ -76,16 +61,24 @@ public class Main extends Application {
 			group.getChildren().add(sphere);
 		}
 
-		scene = new Scene(group, 1280, 720, true);
+		scene = new SubScene(group, 1280, 720, true, SceneAntialiasing.BALANCED);
 		camera.setFieldOfView(70);
 		camera.setVerticalFieldOfView(true);
 		camera.setTranslateZ(-5);
 		scene.setCamera(camera);
 		scene.setFill(Color.BLACK);
 
+		scoreText = new Text(100, 100, "Score: 0");
+		scoreText.setFont(new Font(30));
+		scoreText.setFill(Color.WHITE);
+		Group mainGroup = new Group(scene, scoreText);
+		Scene mainScene = new Scene(mainGroup, 1280, 720);
+		scene.widthProperty().bind(mainScene.widthProperty());
+		scene.heightProperty().bind(mainScene.heightProperty());
+
 		stage.setTitle("Space Brawl Prototype");
-		stage.setScene(scene);
-		stage.setFullScreen(true);
+		stage.setScene(mainScene);
+		stage.setMaximized(true);
 		scene.setCursor(Cursor.NONE);
 		stage.show();
 
@@ -135,7 +128,6 @@ public class Main extends Application {
 		double middleX = scene.getWidth() / 2;
 		double middleY = scene.getHeight() / 2;
 
-		System.out.println(yaw + " " + pitch);
 		yaw += 0.1 * (mouseX - oldMouseX);
 		pitch += 0.1 * (mouseY - oldMouseY);
 		Rotate yawRotate = new Rotate(yaw, Rotate.Y_AXIS);
@@ -170,6 +162,8 @@ public class Main extends Application {
 				Point3D shotPos = transform.transform(Point3D.ZERO);
 				Point3D rockPos = rock.getLocalToParentTransform().transform(Point3D.ZERO);
 				if (shotPos.distance(rockPos) < rock.getRadius() + shot.getRadius()) {
+					score += 100;
+					scoreText.setText("Score: " + score);
 					group.getChildren().remove(shot);
 					remove.add(rock);
 				}
