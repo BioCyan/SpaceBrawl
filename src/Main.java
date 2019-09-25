@@ -29,7 +29,6 @@ public class Main extends Application {
 	private Group group;
 	private ArrayList<Rock> rocks;
 	private ArrayList<Sphere> shots;
-	private Random random;
 	private int score;
 	private Text scoreText;
 
@@ -52,13 +51,13 @@ public class Main extends Application {
 			double z = random.nextDouble() * 10 - 5;
 			double radius = random.nextDouble() * 0.5;
 
-			//Sphere sphere = new Sphere(radius);
-			Rock sphere = new Rock(radius);
-			sphere.setTranslateX(x);
-			sphere.setTranslateY(y);
-			sphere.setTranslateZ(z);
-			rocks.add(sphere);
-			group.getChildren().add(sphere);
+			Rock rock = new Rock(radius);
+			rock.setTranslateX(x);
+			rock.setTranslateY(y);
+			rock.setTranslateZ(z);
+			rock.setMaterial(new PhongMaterial(Color.rgb(128, 128, 128)));
+			rocks.add(rock);
+			group.getChildren().add(rock);
 		}
 
 		scene = new SubScene(group, 1280, 720, true, SceneAntialiasing.BALANCED);
