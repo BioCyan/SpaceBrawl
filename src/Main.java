@@ -195,8 +195,12 @@ class Rock extends MeshView {
 
 	public double getRadius() {
 		return radius;
-	}
-
+	} 
+	/**
+	 * 
+	 * @param radius
+	 * @return
+	 */
 	private TriangleMesh buildMesh(float radius) {
 		TriangleMesh mesh = new TriangleMesh();
 		mesh.getTexCoords().addAll(0, 0);
