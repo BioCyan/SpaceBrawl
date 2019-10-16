@@ -34,6 +34,7 @@ public class Main extends Application {
 	private ArrayList<Sphere> shots;
 	private int score;
 	private Text scoreText;
+	private Point3D moveDir;
 
 	@Override
 	public void start(Stage stage) {
@@ -121,9 +122,51 @@ public class Main extends Application {
 				}
 			}
 		};
-
 		scene.setOnMouseMoved(handler);
 		scene.setOnMouseClicked(handler);
+
+		EventHandler<KeyEvent> keyHandler = new EventHandler<KeyEvent>() {
+			private boolean wDown;
+			private boolean aDown;
+			private boolean sDown;
+			private boolean dDown;
+
+			@Override
+			public void handle(KeyEvent event) {
+				boolean newState;
+				if (event.getEventType() == KeyEvent.KEY_PRESSED) {
+					newState = true;
+				} else if (event.getEventType() == KeyEvent.KEY_RELEASED) {
+					newState = false;
+				} else {
+					return;
+				}
+
+				if (event.getCode() == KeyCode.W) {
+					wDown = newState;
+				} else if (event.getCode() == KeyCode.A) {
+					aDown = newState;
+				} else if (event.getCode() == KeyCode.S) {
+					sDown = newState;
+				} else if (event.getCode() == KeyCode.D) {
+					dDown = newState;
+				}
+
+				moveDir = Point3D.ZERO;
+				if (wDown) {
+					moveDir = moveDir.add(0, 0, 1);
+				}
+				if (aDown) {
+					moveDir = moveDir.add(1, 0, 0);
+				}
+				if (sDown) {
+					moveDir = moveDir.add(0, 0, -1);
+				}
+				if (dDown) {
+					moveDir = moveDir.add(-1, 0, 0);
+				}
+			}
+		};
 	}
 
 	private void update(double deltaTime, long now) {
