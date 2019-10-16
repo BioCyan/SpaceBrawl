@@ -95,7 +95,7 @@ public class Main extends Application {
 					return;
 				}
 
-				update((now - lastUpdate) / 1000000000.0, now);
+				update((now - lastUpdate) / 1000000000.0);
 
 				lastUpdate = now;
 			}
@@ -169,7 +169,7 @@ public class Main extends Application {
 		};
 	}
 
-	private void update(double deltaTime, long now) {
+	private void update(double deltaTime) {
 		double middleX = scene.getWidth() / 2;
 		double middleY = scene.getHeight() / 2;
 
