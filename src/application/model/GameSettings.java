@@ -112,7 +112,7 @@ public class GameSettings {
 	 * sets forward to KeyCode.W, backward to KeyCode.S, left to KeyCode.A, right to KeyCode.D and
 	 * sensitivity to 1.
 	 */
-	GameSettings(){
+	public GameSettings(){
 		setDefualts(KeyCode.W, KeyCode.S, KeyCode.A, KeyCode.D, 1);
 	}
 }
