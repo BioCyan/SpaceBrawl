@@ -20,7 +20,7 @@ public class Rock extends MeshView {
 	
 	public Rock() {
 		super();
-		random = new Random(1);
+		random = new Random();
 		setElem(random.nextDouble()*10-5,random.nextDouble()*10-5,random.nextDouble()*10-5,random.nextDouble()*0.5 );
 		setMesh(buildMesh((float)radius));
 		setMaterial(new PhongMaterial(Color.rgb(128, 128, 128)));
