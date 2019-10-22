@@ -34,6 +34,7 @@ public class Main extends Application {
 	private ArrayList<Sphere> shots;
 	private int score;
 	private Text scoreText;
+	private Point3D moveDir;
 
 	@Override
 	public void start(Stage stage) {
@@ -80,7 +81,7 @@ public class Main extends Application {
 
 		stage.setTitle("Space Brawl Prototype");
 		stage.setScene(mainScene);
-		stage.setMaximized(true);
+		//stage.setMaximized(true);
 		scene.setCursor(Cursor.NONE);
 		stage.show();
 
@@ -94,7 +95,7 @@ public class Main extends Application {
 					return;
 				}
 
-				update((now - lastUpdate) / 1000000000.0, now);
+				update((now - lastUpdate) / 1000000000.0);
 
 				lastUpdate = now;
 			}
@@ -121,12 +122,54 @@ public class Main extends Application {
 				}
 			}
 		};
-
 		scene.setOnMouseMoved(handler);
 		scene.setOnMouseClicked(handler);
+
+		EventHandler<KeyEvent> keyHandler = new EventHandler<KeyEvent>() {
+			private boolean wDown;
+			private boolean aDown;
+			private boolean sDown;
+			private boolean dDown;
+
+			@Override
+			public void handle(KeyEvent event) {
+				boolean newState;
+				if (event.getEventType() == KeyEvent.KEY_PRESSED) {
+					newState = true;
+				} else if (event.getEventType() == KeyEvent.KEY_RELEASED) {
+					newState = false;
+				} else {
+					return;
+				}
+
+				if (event.getCode() == KeyCode.W) {
+					wDown = newState;
+				} else if (event.getCode() == KeyCode.A) {
+					aDown = newState;
+				} else if (event.getCode() == KeyCode.S) {
+					sDown = newState;
+				} else if (event.getCode() == KeyCode.D) {
+					dDown = newState;
+				}
+
+				moveDir = Point3D.ZERO;
+				if (wDown) {
+					moveDir = moveDir.add(0, 0, 1);
+				}
+				if (aDown) {
+					moveDir = moveDir.add(1, 0, 0);
+				}
+				if (sDown) {
+					moveDir = moveDir.add(0, 0, -1);
+				}
+				if (dDown) {
+					moveDir = moveDir.add(-1, 0, 0);
+				}
+			}
+		};
 	}
 
-	private void update(double deltaTime, long now) {
+	private void update(double deltaTime) {
 		double middleX = scene.getWidth() / 2;
 		double middleY = scene.getHeight() / 2;
 
@@ -179,73 +222,5 @@ public class Main extends Application {
 
 	public static void main(String[] args) {
 		Application.launch(args);
-	}
-}
-
-class Rock extends MeshView {
-	private double radius;
-	private Random random;
-
-	public Rock(double radius) {
-		super();
-		this.radius = radius;
-		random = new Random();
-		setMesh(buildMesh((float)radius));
-	}
-
-	public double getRadius() {
-		return radius;
-	} 
-	/**
-	 * 
-	 * @param radius
-	 * @return
-	 */
-	private TriangleMesh buildMesh(float radius) {
-		TriangleMesh mesh = new TriangleMesh();
-		mesh.getTexCoords().addAll(0, 0);
-		mesh.getPoints().addAll(0, -genDistance(radius), 0);
-		mesh.getPoints().addAll(0, genDistance(radius), 0);
-		for (int i = 0; i < 10; i++) {
-			double yaw = 2 * Math.PI * i / 10;
-			for (int j = 1; j < 10; j++) {
-				double pitch = Math.PI * (-0.5 + (double)j / 10);
-
-				float distance = genDistance(radius);
-				float x = (float)Math.sin(yaw);
-				float z = (float)Math.cos(yaw);
-				float s = distance * (float)Math.cos(pitch);
-				x *= s;
-				z *= s;
-				float y = distance * (float)Math.sin(pitch);
-
-				mesh.getPoints().addAll(x, y, z);
-			}
-		}
-		for (int i = 0; i < 10; i++) {
-			mesh.getFaces().addAll(2 + i * 9, 0);
-			mesh.getFaces().addAll(0, 0);
-			mesh.getFaces().addAll(2 + (i + 1) % 10 * 9, 0);
-
-			for (int j = 0; j < 10 - 2; j++) {
-				mesh.getFaces().addAll(2 + i * 9 + j, 0);
-				mesh.getFaces().addAll(2 + (i + 1) % 10 * 9 + j, 0);
-				mesh.getFaces().addAll(2 + (i + 1) % 10 * 9 + j + 1, 0);
-
-				mesh.getFaces().addAll(2 + (i + 1) % 10 * 9 + j + 1, 0);
-				mesh.getFaces().addAll(2 + i * 9 + j + 1, 0);
-				mesh.getFaces().addAll(2 + i * 9 + j, 0);
-			}
-
-			mesh.getFaces().addAll(1, 0);
-			mesh.getFaces().addAll(2 + i * 9 + 8, 0);
-			mesh.getFaces().addAll(2 + (i + 1) % 10 * 9 + 8, 0);
-		}
-
-		return mesh;
-	}
-
-	private float genDistance(float radius) {
-		return radius - random.nextFloat() * radius * 0.2f;
 	}
 }
