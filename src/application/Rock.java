@@ -1,3 +1,5 @@
+package application;
+
 import java.util.Random;
 import javafx.scene.shape.*;
 
