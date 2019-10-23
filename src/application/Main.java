@@ -1,20 +1,39 @@
 // This was just a quick and dirty prototype to hint at what's possible
 // Much of what's in here should be replaced with proper abstractions
+package application;
 
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.util.ArrayList;
 import java.util.Random;
+import application.model.*;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.geometry.Point3D;
-import javafx.scene.*;
-import javafx.scene.input.*;
-import javafx.scene.paint.*;
-import javafx.scene.shape.*;
-import javafx.scene.text.*;
+import javafx.scene.AmbientLight;
+import javafx.scene.Cursor;
+import javafx.scene.Group;
+import javafx.scene.Node;
+import javafx.scene.PerspectiveCamera;
+import javafx.scene.PointLight;
+import javafx.scene.Scene;
+import javafx.scene.SceneAntialiasing;
+import javafx.scene.SubScene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.PhongMaterial;
+import javafx.scene.shape.Sphere;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.scene.transform.Rotate;
+import javafx.scene.transform.Transform;
+import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
 import javafx.scene.transform.*;
 
@@ -34,10 +53,12 @@ public class Main extends Application {
 	private ArrayList<Sphere> shots;
 	private int score;
 	private Text scoreText;
-	private Point3D moveDir;
+	private GameSettings settings;
+	Point3D moveDir;
 
 	@Override
 	public void start(Stage stage) {
+		settings = new GameSettings();
 		rocks = new ArrayList<Rock>();
 		shots = new ArrayList<Sphere>();
 		camera = new PerspectiveCamera(true);
@@ -48,18 +69,24 @@ public class Main extends Application {
 
 		group = new Group(camera, light, aLight);
 
-		Random random = new Random(1);
-		for (int i = 0; i < 32; i++) {
-			double x = random.nextDouble() * 10 - 5;
-			double y = random.nextDouble() * 10 - 5;
-			double z = random.nextDouble() * 10 - 5;
-			double radius = random.nextDouble() * 0.5;
+		/*
+		 * Random random = new Random(1);
+		 * 
+		 * for (int i = 0; i < 32; i++) { double x = random.nextDouble() * 10 - 5;
+		 * double y = random.nextDouble() * 10 - 5; double z = random.nextDouble() * 10
+		 * - 5; double radius = random.nextDouble() * 0.5;
+		 * 
+		 * Rock rock = new Rock(radius); rock.setTranslateX(x); rock.setTranslateY(y);
+		 * rock.setTranslateZ(z); rock.setMaterial(new PhongMaterial(Color.rgb(128, 128,
+		 * 128))); rocks.add(rock); group.getChildren().add(rock); }
+		 */
 
-			Rock rock = new Rock(radius);
-			rock.setTranslateX(x);
-			rock.setTranslateY(y);
-			rock.setTranslateZ(z);
-			rock.setMaterial(new PhongMaterial(Color.rgb(128, 128, 128)));
+		/*
+		 * moved a lot of the for loop above into the rock object itself
+		 */
+
+		for (int i = 0; i < 32; i++) {
+			Rock rock = new Rock();
 			rocks.add(rock);
 			group.getChildren().add(rock);
 		}
@@ -75,7 +102,7 @@ public class Main extends Application {
 		scoreText.setFont(new Font(30));
 		scoreText.setFill(Color.WHITE);
 		Group mainGroup = new Group(scene, scoreText);
-		Scene mainScene = new Scene(mainGroup, 1250, 900);
+		Scene mainScene = new Scene(mainGroup, 1280, 720);
 		scene.widthProperty().bind(mainScene.widthProperty());
 		scene.heightProperty().bind(mainScene.heightProperty());
 
@@ -133,6 +160,17 @@ public class Main extends Application {
 
 			@Override
 			public void handle(KeyEvent event) {
+				if (event.getCode().equals(KeyCode.ESCAPE)) {
+					VBox vBox = new VBox();
+					StackPane wrapper = new StackPane();
+					wrapper.getChildren().add(vBox);
+					scene = new SubScene(wrapper, 1200, 700);
+					Stage stage = new Stage();
+					stage.setScene(scene.getScene());
+					stage.show();
+					return;
+				}
+
 				boolean newState;
 				if (event.getEventType() == KeyEvent.KEY_PRESSED) {
 					newState = true;
@@ -186,19 +224,20 @@ public class Main extends Application {
 		Platform.runLater(() -> {
 			try {
 				Robot robot = new Robot();
-				robot.mouseMove((int)middleX, (int)middleY);
-				mouseX = (int)middleX;
-				mouseY = (int)middleY;
+				robot.mouseMove((int) middleX, (int) middleY);
+				mouseX = (int) middleX;
+				mouseY = (int) middleY;
 				oldMouseX = mouseX;
 				oldMouseY = mouseY;
-			} catch (AWTException e) {}
+			} catch (AWTException e) {
+			}
 		});
 
 		oldMouseX = mouseX;
 		oldMouseY = mouseY;
 
 		for (Sphere shot : shots) {
-			Translate translate = new Translate(0, 0, 10*deltaTime);
+			Translate translate = new Translate(0, 0, 10 * deltaTime);
 			Transform transform = shot.getLocalToParentTransform().createConcatenation(translate);
 			shot.getTransforms().setAll(transform);
 

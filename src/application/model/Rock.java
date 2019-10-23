@@ -1,15 +1,37 @@
-import java.util.Random;
-import javafx.scene.shape.*;
+package application.model;
 
-class Rock extends MeshView {
+import java.util.Random;
+
+import javafx.scene.paint.PhongMaterial;
+import javafx.scene.shape.MeshView;
+import javafx.scene.shape.TriangleMesh;
+import javafx.scene.paint.Color;
+
+public class Rock extends MeshView {
 	private double radius;
 	private Random random;
 
+	private void setElem(double x, double y, double z, double r) {
+		setTranslateX(x);
+		setTranslateY(y);
+		setTranslateZ(z);
+		radius = r;
+	}
+
+	public Rock() {
+		super();
+		random = new Random();
+		setElem(random.nextDouble()*10-5,random.nextDouble()*10-5,random.nextDouble()*10-5,random.nextDouble()*0.5 );
+		setMesh(buildMesh((float)radius));
+		setMaterial(new PhongMaterial(Color.rgb(128, 128, 128)));
+	}
+
 	public Rock(double radius) {
 		super();
-		this.radius = radius;
 		random = new Random();
+		setElem(random.nextDouble()*10-5,random.nextDouble()*10-5,random.nextDouble()*10-5,radius );
 		setMesh(buildMesh((float)radius));
+		setMaterial(new PhongMaterial(Color.rgb(128, 128, 128)));
 	}
 
 	public double getRadius() {
