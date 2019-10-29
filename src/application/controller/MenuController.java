@@ -33,6 +33,7 @@ public class MenuController {
 	void exit(ActionEvent e) {
 		//TODO: needs a close to parent stage
 		System.out.println("exit called");
+		stage.close();
 	}
 
 	public void initialize(Stage stage) {
