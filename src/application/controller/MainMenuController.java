@@ -1,8 +1,8 @@
 package application.controller;
 
 import application.model.GameSettings;
-import application.control.GameController;
-import application.control.SettingsMenuController;
+import application.controller.GameController;
+import application.controller.SettingsMenuController;
 /**
  * The first controller called by main
  *
