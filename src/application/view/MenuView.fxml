@@ -22,7 +22,7 @@
    <children>
       <Pane prefHeight="800.0" prefWidth="800.0">
          <children>
-            <ImageView fitHeight="812.0" fitWidth="904.0" layoutY="-1.0">
+            <ImageView fitHeight="720.0" fitWidth="960.0" layoutY="-1.0">
                <image>
                   <Image url="@../../giphy.gif" />
                </image>
