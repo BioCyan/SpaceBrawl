@@ -1,6 +1,5 @@
 package application.controller;
 
-import java.awt.AWTException;
 import java.awt.Robot;
 import java.util.ArrayList;
 import application.model.*;
@@ -25,6 +24,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
+//import javafx.scene.robot.Robot;
 import javafx.scene.shape.Sphere;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -57,7 +57,7 @@ public class GameController {
 	private int score;
 	private Text scoreText;
 	private GameSettings settings;
-	Point3D moveDir;
+	Point3D moveDir = Point3D.ZERO;
 
 	public void start(Stage stage) {
 		settings = new GameSettings();
@@ -77,7 +77,7 @@ public class GameController {
 			group.getChildren().add(rock);
 		}
 
-		scene = new SubScene(group, 1280, 720, true, SceneAntialiasing.BALANCED);
+		scene = new SubScene(group, 960, 720, true, SceneAntialiasing.BALANCED);
 		camera.setFieldOfView(70);
 		camera.setVerticalFieldOfView(true);
 		camera.setTranslateZ(-5);
@@ -88,7 +88,7 @@ public class GameController {
 		scoreText.setFont(new Font(30));
 		scoreText.setFill(Color.WHITE);
 		Group mainGroup = new Group(scene, scoreText);
-		Scene mainScene = new Scene(mainGroup, 1280, 720);
+		Scene mainScene = new Scene(mainGroup, 960, 720);
 		scene.widthProperty().bind(mainScene.widthProperty());
 		scene.heightProperty().bind(mainScene.heightProperty());
 
@@ -115,109 +115,120 @@ public class GameController {
 		}.start();
 
 		EventHandler<MouseEvent> handler = new EventHandler<MouseEvent>() {
-				@Override
-				public void handle(MouseEvent event) {
-					GameController.mouseX = event.getScreenX();
-					GameController.mouseY = event.getScreenY();
+			@Override
+			public void handle(MouseEvent event) {
+				GameController.mouseX = event.getScreenX();
+				GameController.mouseY = event.getScreenY();
 
-					if (event.getEventType() == MouseEvent.MOUSE_CLICKED) {
-						Sphere shot = new Sphere(0.1);
-						PhongMaterial material = new PhongMaterial(Color.RED);
-						shot.setMaterial(material);
+				if (event.getEventType() == MouseEvent.MOUSE_CLICKED) {
+					Sphere shot = new Sphere(0.1);
+					PhongMaterial material = new PhongMaterial(Color.RED);
+					shot.setMaterial(material);
 
-						Transform transform = new Translate(0, 0, 1);
-						Transform camTransform = camera.getLocalToParentTransform();
-						transform = camTransform.createConcatenation(transform);
-						shot.getTransforms().setAll(transform);
+					Transform transform = new Translate(0, 0, 1);
+					Transform camTransform = camera.getLocalToParentTransform();
+					transform = camTransform.createConcatenation(transform);
+					shot.getTransforms().setAll(transform);
 
-						shots.add(shot);
-						group.getChildren().add(shot);
-					}
+					shots.add(shot);
+					group.getChildren().add(shot);
 				}
-			};
+			}
+		};
 		scene.setOnMouseMoved(handler);
 		scene.setOnMouseClicked(handler);
 
 		EventHandler<KeyEvent> keyHandler = new EventHandler<KeyEvent>() {
-				private boolean wDown;
-				private boolean aDown;
-				private boolean sDown;
-				private boolean dDown;
+			private boolean wDown;
+			private boolean aDown;
+			private boolean sDown;
+			private boolean dDown;
 
-				@Override
-				public void handle(KeyEvent event) {
-					if (event.getCode().equals(KeyCode.ESCAPE)) {
-						VBox vBox = new VBox();
-						StackPane wrapper = new StackPane();
-						wrapper.getChildren().add(vBox);
-						scene = new SubScene(wrapper, 1200, 700);
-						Stage stage = new Stage();
-						stage.setScene(scene.getScene());
-						stage.show();
-						return;
-					}
-
-					boolean newState;
-					if (event.getEventType() == KeyEvent.KEY_PRESSED) {
-						newState = true;
-					} else if (event.getEventType() == KeyEvent.KEY_RELEASED) {
-						newState = false;
-					} else {
-						return;
-					}
-
-					if (event.getCode() == KeyCode.W) {
-						wDown = newState;
-					} else if (event.getCode() == KeyCode.A) {
-						aDown = newState;
-					} else if (event.getCode() == KeyCode.S) {
-						sDown = newState;
-					} else if (event.getCode() == KeyCode.D) {
-						dDown = newState;
-					}
-
-					moveDir = Point3D.ZERO;
-					if (wDown) {
-						moveDir = moveDir.add(0, 0, 1);
-					}
-					if (aDown) {
-						moveDir = moveDir.add(1, 0, 0);
-					}
-					if (sDown) {
-						moveDir = moveDir.add(0, 0, -1);
-					}
-					if (dDown) {
-						moveDir = moveDir.add(-1, 0, 0);
-					}
+			@Override
+			public void handle(KeyEvent event) {
+				if (event.getCode().equals(KeyCode.ESCAPE)) {
+					VBox vBox = new VBox();
+					StackPane wrapper = new StackPane();
+					wrapper.getChildren().add(vBox);
+					scene = new SubScene(wrapper, 1200, 700);
+					Stage stage = new Stage();
+					stage.setScene(scene.getScene());
+					stage.show();
+					return;
 				}
-			};
+
+				boolean newState;
+				if (event.getEventType() == KeyEvent.KEY_PRESSED) {
+					newState = true;
+				} else if (event.getEventType() == KeyEvent.KEY_RELEASED) {
+					newState = false;
+				} else {
+					return;
+				}
+
+				if (event.getCode() == KeyCode.W) {
+					wDown = newState;
+				} else if (event.getCode() == KeyCode.A) {
+					aDown = newState;
+				} else if (event.getCode() == KeyCode.S) {
+					sDown = newState;
+				} else if (event.getCode() == KeyCode.D) {
+					dDown = newState;
+				}
+
+				moveDir = Point3D.ZERO;
+				if (wDown) {
+					moveDir = moveDir.add(0, 0, 1);
+				}
+				if (aDown) {
+					moveDir = moveDir.add(1, 0, 0);
+				}
+				if (sDown) {
+					moveDir = moveDir.add(0, 0, -1);
+				}
+				if (dDown) {
+					moveDir = moveDir.add(-1, 0, 0);
+				}
+			}
+		};
+		mainScene.setOnKeyPressed(keyHandler);
+		mainScene.setOnKeyReleased(keyHandler);
 	}
 
 	private void update(double deltaTime) {
 		double middleX = scene.getWidth() / 2;
 		double middleY = scene.getHeight() / 2;
 
-		yaw += 0.1 * (mouseX - oldMouseX);
-		pitch += 0.1 * (mouseY - oldMouseY);
+		double yaw = 0.1 * (mouseX - oldMouseX);
+		double pitch = 0.1 * (mouseY - oldMouseY);
+		Transform oldTransform = camera.getLocalToSceneTransform();
+		double moveBy = 1*deltaTime;
+		Translate translateBy = new Translate(
+			-moveBy*moveDir.getX(),
+			0,
+			moveBy*moveDir.getZ());
 		Rotate yawRotate = new Rotate(yaw, Rotate.Y_AXIS);
 		Rotate pitchRotate = new Rotate(-pitch, Rotate.X_AXIS);
 		camera.getTransforms().removeAll();
-		camera.getTransforms().setAll(yawRotate, pitchRotate);
+		camera.getTransforms().setAll(oldTransform, translateBy, yawRotate, pitchRotate);
+		camera.setTranslateX(0);
+		camera.setTranslateY(0);
+		camera.setTranslateZ(0);
 
 		// Unfortunately JavaFX didn't get Robot until Java 11
 		// and we'll be running on machines with only Java 8
 		// so we're using the AWT API for this
-		Platform.runLater(() -> {
-				try {
-					Robot robot = new Robot();
-					robot.mouseMove((int) middleX, (int) middleY);
-					mouseX = (int) middleX;
-					mouseY = (int) middleY;
-					oldMouseX = mouseX;
-					oldMouseY = mouseY;
-				} catch (AWTException e) {
-				}
-			});
+		//Platform.runLater(() -> {
+			try {
+				Robot robot = new Robot();
+				robot.mouseMove((int) middleX, (int) middleY);
+				mouseX = (int) middleX;
+				mouseY = (int) middleY;
+				oldMouseX = mouseX;
+				oldMouseY = mouseY;
+			} catch (Exception e) {
+			}
+		//});
 
 		oldMouseX = mouseX;
 		oldMouseY = mouseY;
