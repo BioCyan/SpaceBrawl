@@ -77,7 +77,7 @@ public class GameController {
 			group.getChildren().add(rock);
 		}
 
-		scene = new SubScene(group, 800, 700, true, SceneAntialiasing.BALANCED);
+		scene = new SubScene(group, 960, 720, true, SceneAntialiasing.BALANCED);
 		camera.setFieldOfView(70);
 		camera.setVerticalFieldOfView(true);
 		camera.setTranslateZ(-5);
@@ -88,7 +88,7 @@ public class GameController {
 		scoreText.setFont(new Font(30));
 		scoreText.setFill(Color.WHITE);
 		Group mainGroup = new Group(scene, scoreText);
-		Scene mainScene = new Scene(mainGroup, 800, 700);
+		Scene mainScene = new Scene(mainGroup, 960, 720);
 		scene.widthProperty().bind(mainScene.widthProperty());
 		scene.heightProperty().bind(mainScene.heightProperty());
 
@@ -146,7 +146,6 @@ public class GameController {
 
 			@Override
 			public void handle(KeyEvent event) {
-				System.out.println(moveDir);
 				if (event.getCode().equals(KeyCode.ESCAPE)) {
 					VBox vBox = new VBox();
 					StackPane wrapper = new StackPane();
@@ -200,17 +199,26 @@ public class GameController {
 		double middleX = scene.getWidth() / 2;
 		double middleY = scene.getHeight() / 2;
 
-		yaw += 0.1 * (mouseX - oldMouseX);
-		pitch += 0.1 * (mouseY - oldMouseY);
+		double yaw = 0.1 * (mouseX - oldMouseX);
+		double pitch = 0.1 * (mouseY - oldMouseY);
+		Transform oldTransform = camera.getLocalToSceneTransform();
+		double moveBy = 1*deltaTime;
+		Translate translateBy = new Translate(
+			-moveBy*moveDir.getX(),
+			0,
+			moveBy*moveDir.getZ());
 		Rotate yawRotate = new Rotate(yaw, Rotate.Y_AXIS);
 		Rotate pitchRotate = new Rotate(-pitch, Rotate.X_AXIS);
 		camera.getTransforms().removeAll();
-		camera.getTransforms().setAll(yawRotate, pitchRotate);
+		camera.getTransforms().setAll(oldTransform, translateBy, yawRotate, pitchRotate);
+		camera.setTranslateX(0);
+		camera.setTranslateY(0);
+		camera.setTranslateZ(0);
 
 		// Unfortunately JavaFX didn't get Robot until Java 11
 		// and we'll be running on machines with only Java 8
 		// so we're using the AWT API for this
-		Platform.runLater(() -> {
+		//Platform.runLater(() -> {
 			try {
 				Robot robot = new Robot();
 				robot.mouseMove((int) middleX, (int) middleY);
@@ -220,7 +228,7 @@ public class GameController {
 				oldMouseY = mouseY;
 			} catch (Exception e) {
 			}
-		});
+		//});
 
 		oldMouseX = mouseX;
 		oldMouseY = mouseY;
