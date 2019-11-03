@@ -1,27 +1,17 @@
 package application.controller;
 
 import java.awt.Robot;
+import java.io.IOException;
 import java.util.ArrayList;
 import application.model.*;
 import javafx.animation.AnimationTimer;
-import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point3D;
-import javafx.scene.AmbientLight;
-import javafx.scene.Cursor;
-import javafx.scene.Group;
-import javafx.scene.Node;
-import javafx.scene.PerspectiveCamera;
-import javafx.scene.PointLight;
-import javafx.scene.Scene;
-import javafx.scene.SceneAntialiasing;
-import javafx.scene.SubScene;
+import javafx.scene.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 //import javafx.scene.robot.Robot;
@@ -147,13 +137,29 @@ public class GameController {
 			@Override
 			public void handle(KeyEvent event) {
 				if (event.getCode().equals(KeyCode.ESCAPE)) {
-					VBox vBox = new VBox();
-					StackPane wrapper = new StackPane();
-					wrapper.getChildren().add(vBox);
-					scene = new SubScene(wrapper, 1200, 700);
-					Stage stage = new Stage();
-					stage.setScene(scene.getScene());
-					stage.show();
+//					VBox vBox = new VBox();
+//					StackPane wrapper = new StackPane();
+//					wrapper.getChildren().add(vBox);
+//					scene = new SubScene(wrapper, 1200, 700);
+//					Stage stage = new Stage();
+//					stage.setScene(scene.getScene());
+//					stage.show();
+					FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/PauseMenu.fxml"));
+					try {
+						loader.setController(new PauseMenuController(stage));
+						Parent root  =loader.load();
+						PauseMenuController controller = loader.getController();
+						stage.setTitle("Pause Menu");
+						stage.setScene(new Scene(root,800,800));
+						stage.show();
+
+
+
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+
+
 					return;
 				}
 
