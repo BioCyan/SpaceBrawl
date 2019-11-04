@@ -49,7 +49,12 @@ public class GameController {
 	private GameSettings settings;
 	Point3D moveDir = Point3D.ZERO;
 
-	public void start(Stage stage) {
+	public void start(Stage stage) throws IOException {
+
+
+		//loads controller at startup to prevent breaking of game pace
+		PauseMenuController controller = new PauseMenuController(stage);
+		settings = new GameSettings();
 		settings = new GameSettings();
 		rocks = new ArrayList<Rock>();
 		shots = new ArrayList<Sphere>();
@@ -74,7 +79,7 @@ public class GameController {
 		scene.setCamera(camera);
 		scene.setFill(Color.BLACK);
 
-		scoreText = new Text(100, 100, "Score: 0");
+		scoreText = new Text(100, 100, "Score: 0\n Missles: 0");
 		scoreText.setFont(new Font(30));
 		scoreText.setFill(Color.WHITE);
 		Group mainGroup = new Group(scene, scoreText);
@@ -137,29 +142,7 @@ public class GameController {
 			@Override
 			public void handle(KeyEvent event) {
 				if (event.getCode().equals(KeyCode.ESCAPE)) {
-//					VBox vBox = new VBox();
-//					StackPane wrapper = new StackPane();
-//					wrapper.getChildren().add(vBox);
-//					scene = new SubScene(wrapper, 1200, 700);
-//					Stage stage = new Stage();
-//					stage.setScene(scene.getScene());
-//					stage.show();
-					FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/PauseMenu.fxml"));
-					try {
-						loader.setController(new PauseMenuController(stage));
-						Parent root  =loader.load();
-						PauseMenuController controller = loader.getController();
-						stage.setTitle("Pause Menu");
-						stage.setScene(new Scene(root,800,800));
-						stage.show();
-
-
-
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-
-
+					controller.init();
 					return;
 				}
 
@@ -202,6 +185,8 @@ public class GameController {
 	}
 
 	private void update(double deltaTime) {
+		//updates missle and score count at every update
+		scoreText.setText("Score: " + score+ "\n Missles: " + shots.size());
 		double middleX = scene.getWidth() / 2;
 		double middleY = scene.getHeight() / 2;
 
@@ -251,7 +236,7 @@ public class GameController {
 				Point3D rockPos = rock.getLocalToParentTransform().transform(Point3D.ZERO);
 				if (shotPos.distance(rockPos) < rock.getRadius() + shot.getRadius()) {
 					score += 100;
-					scoreText.setText("Score: " + score);
+
 					group.getChildren().remove(shot);
 					remove.add(rock);
 				}

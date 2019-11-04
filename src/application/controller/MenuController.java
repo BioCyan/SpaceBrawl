@@ -5,6 +5,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class MenuController {
 	@FXML
 	private Button startButton;
@@ -18,7 +20,7 @@ public class MenuController {
 	private Stage stage;
 
 	@FXML
-	void start(ActionEvent e) {
+	void start(ActionEvent e) throws IOException {
 		GameController controller = new GameController();
 		controller.start(stage);
 	}
