@@ -12,7 +12,7 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620" prefWidth="920" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620" prefWidth="920" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.PauseMenuController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
   </columnConstraints>
@@ -40,10 +40,10 @@
                   <Font size="63.0" />
                </font>
             </Label>
-            <Button fx:id="resume" layoutX="203.0" layoutY="240.0" mnemonicParsing="false"  prefHeight="50.0" prefWidth="147.0" text="Return to menu" textAlignment="CENTER" />
-            <Button fx:id="settings" layoutX="202.0" layoutY="175.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="147.0" text="Settings" textAlignment="CENTER" />
-            <Button fx:id="menu" layoutX="202.0" layoutY="99.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="147.0" text="Resume" textAlignment="CENTER" />
-            <Button fx:id="quit" layoutX="203.0" layoutY="314.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="147.0" text="Quit Game" textAlignment="CENTER" />
+            <Button onAction="#resume" fx:id="resume" layoutX="203.0" layoutY="240.0" mnemonicParsing="false"  prefHeight="50.0" prefWidth="147.0" text="Resume" textAlignment="CENTER" />
+            <Button onAction="#settings" fx:id="settings" layoutX="202.0" layoutY="175.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="147.0" text="Settings" textAlignment="CENTER" />
+            <Button onAction="#menu" fx:id="menu" layoutX="202.0" layoutY="99.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="147.0" text="Return to menu" textAlignment="CENTER" />
+            <Button onAction="#quit" fx:id="quit" layoutX="203.0" layoutY="314.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="147.0" text="Quit Game" textAlignment="CENTER" />
          </children>
       </Pane>
    </children>
