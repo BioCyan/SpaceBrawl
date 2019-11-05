@@ -23,7 +23,7 @@ public class Main extends Application {
 		MenuController controller = loader.getController();
 		controller.initialize(primaryStage);
 		primaryStage.setTitle("Space Brawl");
-		primaryStage.setScene(new Scene(root, 800, 700));
+		primaryStage.setScene(new Scene(root, 800, 800));
 		primaryStage.show();
 	}
 

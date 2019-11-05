@@ -1,27 +1,17 @@
 package application.controller;
 
 import java.awt.Robot;
+import java.io.IOException;
 import java.util.ArrayList;
 import application.model.*;
 import javafx.animation.AnimationTimer;
-import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point3D;
-import javafx.scene.AmbientLight;
-import javafx.scene.Cursor;
-import javafx.scene.Group;
-import javafx.scene.Node;
-import javafx.scene.PerspectiveCamera;
-import javafx.scene.PointLight;
-import javafx.scene.Scene;
-import javafx.scene.SceneAntialiasing;
-import javafx.scene.SubScene;
+import javafx.scene.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 //import javafx.scene.robot.Robot;
@@ -61,7 +51,12 @@ public class GameController {
 	Point3D moveDir = Point3D.ZERO;
 	Point3D velocity = Point3D.ZERO;
 
-	public void start(Stage stage) {
+	public void start(Stage stage) throws IOException {
+
+
+		//loads controller at startup to prevent breaking of game pace
+		PauseMenuController controller = new PauseMenuController(stage);
+		settings = new GameSettings();
 		settings = new GameSettings();
 		rocks = new ArrayList<Rock>();
 		shots = new ArrayList<Sphere>();
@@ -88,7 +83,7 @@ public class GameController {
 		scene.setCamera(camera);
 		scene.setFill(Color.BLACK);
 
-		scoreText = new Text(100, 100, "Score: 0");
+		scoreText = new Text(100, 100, "Score: 0\n Missles: 0");
 		scoreText.setFont(new Font(30));
 		scoreText.setFill(Color.WHITE);
 		Group mainGroup = new Group(scene, scoreText);
@@ -153,13 +148,7 @@ public class GameController {
 			@Override
 			public void handle(KeyEvent event) {
 				if (event.getCode().equals(KeyCode.ESCAPE)) {
-					VBox vBox = new VBox();
-					StackPane wrapper = new StackPane();
-					wrapper.getChildren().add(vBox);
-					scene = new SubScene(wrapper, 1200, 700);
-					Stage stage = new Stage();
-					stage.setScene(scene.getScene());
-					stage.show();
+					controller.init();
 					return;
 				}
 
@@ -212,6 +201,8 @@ public class GameController {
 	}
 
 	private void update(double deltaTime) {
+		//updates missle and score count at every update
+		scoreText.setText("Score: " + score+ "\n Missles: " + shots.size());
 		double middleX = scene.getWidth() / 2;
 		double middleY = scene.getHeight() / 2;
 
@@ -267,7 +258,7 @@ public class GameController {
 				Point3D rockPos = rock.getLocalToParentTransform().transform(Point3D.ZERO);
 				if (shotPos.distance(rockPos) < rock.getRadius() + shot.getRadius()) {
 					score += 100;
-					scoreText.setText("Score: " + score);
+
 					group.getChildren().remove(shot);
 					remove.add(rock);
 				}
