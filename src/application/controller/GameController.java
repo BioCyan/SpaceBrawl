@@ -52,8 +52,8 @@ public class GameController {
 	Point3D velocity = Point3D.ZERO;
 
 	public void start(Stage stage) throws IOException {
+		//TODO starry background, rock textures, textured star, and laser shape
 
-//TODO stary background,rock textures,textured stars, and laser shape
 		//loads controller at startup to prevent breaking of game pace
 		PauseMenuController controller = new PauseMenuController(stage);
 		settings = new GameSettings();
