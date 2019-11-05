@@ -51,7 +51,7 @@ public class GameController {
 
 	public void start(Stage stage) throws IOException {
 
-
+//TODO stary background,rock textures,textured stars, and laser shape
 		//loads controller at startup to prevent breaking of game pace
 		PauseMenuController controller = new PauseMenuController(stage);
 		settings = new GameSettings();

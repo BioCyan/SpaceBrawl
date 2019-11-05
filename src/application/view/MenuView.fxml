@@ -20,9 +20,9 @@
       <RowConstraints />
    </rowConstraints>
    <children>
-      <Pane prefHeight="800.0" prefWidth="800.0">
+      <Pane prefHeight="800.0" prefWidth="800">
          <children>
-            <ImageView fitHeight="800.0" fitWidth="800.0" layoutY="-1.0">
+            <ImageView fitHeight="720.0" fitWidth="960.0" layoutY="-1.0">
                <image>
                   <Image url="@../../giphy.gif" />
                </image>
