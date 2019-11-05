@@ -52,12 +52,14 @@ public class GameController {
 	private PerspectiveCamera camera;
 	private SubScene scene;
 	private Group group;
+	private Sphere star;
 	private ArrayList<Rock> rocks;
 	private ArrayList<Sphere> shots;
 	private int score;
 	private Text scoreText;
 	private GameSettings settings;
 	Point3D moveDir = Point3D.ZERO;
+	Point3D velocity = Point3D.ZERO;
 
 	public void start(Stage stage) {
 		settings = new GameSettings();
@@ -66,10 +68,12 @@ public class GameController {
 		camera = new PerspectiveCamera(true);
 
 		PointLight light = new PointLight();
-		light.setTranslateZ(-3);
+		//light.setTranslateZ(-3);
 		AmbientLight aLight = new AmbientLight(Color.rgb(24, 24, 24));
+		star = new Sphere(1);
+		//star.setTranslateZ(-3);
 
-		group = new Group(camera, light, aLight);
+		group = new Group(camera, star, light, aLight);
 
 		for (int i = 0; i < 32; i++) {
 			Rock rock = new Rock();
@@ -143,6 +147,8 @@ public class GameController {
 			private boolean aDown;
 			private boolean sDown;
 			private boolean dDown;
+			private boolean spaceDown;
+			private boolean ctrlDown;
 
 			@Override
 			public void handle(KeyEvent event) {
@@ -174,20 +180,30 @@ public class GameController {
 					sDown = newState;
 				} else if (event.getCode() == KeyCode.D) {
 					dDown = newState;
+				} else if (event.getCode() == KeyCode.SPACE) {
+					spaceDown = newState;
+				} else if (event.getCode() == KeyCode.CONTROL) {
+					ctrlDown = newState;
 				}
 
 				moveDir = Point3D.ZERO;
 				if (wDown) {
-					moveDir = moveDir.add(0, 0, 1);
+					moveDir = moveDir.add(0, 0, -1);
 				}
 				if (aDown) {
 					moveDir = moveDir.add(1, 0, 0);
 				}
 				if (sDown) {
-					moveDir = moveDir.add(0, 0, -1);
+					moveDir = moveDir.add(0, 0, 1);
 				}
 				if (dDown) {
 					moveDir = moveDir.add(-1, 0, 0);
+				}
+				if (spaceDown) {
+					moveDir = moveDir.add(0, 1, 0);
+				}
+				if (ctrlDown) {
+					moveDir = moveDir.add(0, -1, 0);
 				}
 			}
 		};
@@ -201,34 +217,40 @@ public class GameController {
 
 		double yaw = 0.1 * (mouseX - oldMouseX);
 		double pitch = 0.1 * (mouseY - oldMouseY);
-		Transform oldTransform = camera.getLocalToSceneTransform();
-		double moveBy = 1*deltaTime;
-		Translate translateBy = new Translate(
-			-moveBy*moveDir.getX(),
-			0,
-			moveBy*moveDir.getZ());
 		Rotate yawRotate = new Rotate(yaw, Rotate.Y_AXIS);
 		Rotate pitchRotate = new Rotate(-pitch, Rotate.X_AXIS);
+
+		Transform oldTransform = camera.getLocalToSceneTransform();
+		Point3D disp = star.localToScene(Point3D.ZERO, false)
+			.subtract(camera.localToScene(Point3D.ZERO, false));
+		double force = 10 / disp.dotProduct(disp);
+		Point3D accelBy = oldTransform.deltaTransform(moveDir.multiply(1*deltaTime));
+		accelBy = accelBy.add(disp.normalize().multiply(-force*deltaTime));
+		velocity = velocity.add(accelBy);
+		Point3D moveBy = velocity.multiply(deltaTime);
+		Translate translateBy = new Translate(
+			moveBy.getX(),
+			moveBy.getY(),
+			moveBy.getZ()).createInverse();
+
 		camera.getTransforms().removeAll();
-		camera.getTransforms().setAll(oldTransform, translateBy, yawRotate, pitchRotate);
+		camera.getTransforms().setAll(translateBy, oldTransform, yawRotate, pitchRotate);
 		camera.setTranslateX(0);
 		camera.setTranslateY(0);
 		camera.setTranslateZ(0);
 
 		// Unfortunately JavaFX didn't get Robot until Java 11
 		// and we'll be running on machines with only Java 8
-		// so we're using the AWT API for this
-		//Platform.runLater(() -> {
-			try {
-				Robot robot = new Robot();
-				robot.mouseMove((int) middleX, (int) middleY);
-				mouseX = (int) middleX;
-				mouseY = (int) middleY;
-				oldMouseX = mouseX;
-				oldMouseY = mouseY;
-			} catch (Exception e) {
-			}
-		//});
+		// so we're using the AWT API for this which is not safe
+		try {
+			Robot robot = new Robot();
+			robot.mouseMove((int)middleX, (int)middleY);
+			mouseX = (int)middleX;
+			mouseY = (int)middleY;
+			oldMouseX = mouseX;
+			oldMouseY = mouseY;
+		} catch (Exception e) {
+		}
 
 		oldMouseX = mouseX;
 		oldMouseY = mouseY;
