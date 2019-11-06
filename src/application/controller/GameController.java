@@ -50,9 +50,11 @@ public class GameController {
 	private GameSettings settings;
 	Point3D moveDir = Point3D.ZERO;
 	Point3D velocity = Point3D.ZERO;
+	boolean paused = false;
 
 	public void start(Stage stage) throws IOException {
 		//TODO starry background, rock textures, textured star, and laser shape
+
 
 		//loads controller at startup to prevent breaking of game pace
 		PauseMenuController controller = new PauseMenuController(stage);
@@ -107,7 +109,8 @@ public class GameController {
 					return;
 				}
 
-				update((now - lastUpdate) / 1000000000.0);
+				if(!paused)
+					update((now - lastUpdate) / 1000000000.0);
 
 				lastUpdate = now;
 			}
@@ -148,6 +151,7 @@ public class GameController {
 			@Override
 			public void handle(KeyEvent event) {
 				if (event.getCode().equals(KeyCode.ESCAPE)) {
+					paused =true;
 					controller.init();
 					return;
 				}
