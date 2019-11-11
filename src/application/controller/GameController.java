@@ -13,7 +13,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.PhongMaterial;
 //import javafx.scene.robot.Robot;
 import javafx.scene.shape.Sphere;
 import javafx.scene.text.Font;
@@ -44,7 +43,7 @@ public class GameController {
 	private Group group;
 	private Sphere star;
 	private ArrayList<Rock> rocks;
-	private ArrayList<Sphere> shots;
+	private ArrayList<PlasmaBolt> shots;
 	private int score;
 	private Text scoreText;
 	private GameSettings settings;
@@ -60,8 +59,8 @@ public class GameController {
 		PauseMenuController controller = new PauseMenuController(stage);
 		settings = new GameSettings();
 		settings = new GameSettings();
-		rocks = new ArrayList<Rock>();
-		shots = new ArrayList<Sphere>();
+		rocks = new ArrayList<>();
+		shots = new ArrayList<>();
 		camera = new PerspectiveCamera(true);
 
 		PointLight light = new PointLight();
@@ -123,15 +122,11 @@ public class GameController {
 				GameController.mouseY = event.getScreenY();
 
 				if (event.getEventType() == MouseEvent.MOUSE_CLICKED) {
-					Sphere shot = new Sphere(0.1);
-					PhongMaterial material = new PhongMaterial(Color.RED);
-					shot.setMaterial(material);
-
 					Transform transform = new Translate(0, 0, 1);
 					Transform camTransform = camera.getLocalToParentTransform();
 					transform = camTransform.createConcatenation(transform);
-					shot.getTransforms().setAll(transform);
 
+					PlasmaBolt shot = new PlasmaBolt(transform);
 					shots.add(shot);
 					group.getChildren().add(shot);
 				}
@@ -205,7 +200,7 @@ public class GameController {
 	}
 
 	private void update(double deltaTime) {
-		//updates missle and score count at every update
+		//updates missile and score count at every update
 		scoreText.setText("Score: " + score+ "\n Missiles: " + shots.size());
 		double middleX = scene.getWidth() / 2;
 		double middleY = scene.getHeight() / 2;
@@ -250,17 +245,13 @@ public class GameController {
 		oldMouseX = mouseX;
 		oldMouseY = mouseY;
 
-		for (Sphere shot : shots) {
-			Translate translate = new Translate(0, 0, 10 * deltaTime);
-			Transform transform = shot.getLocalToParentTransform().createConcatenation(translate);
-			shot.getTransforms().setAll(transform);
+		for (PlasmaBolt shot : shots) {
+			shot.update(deltaTime);
 
 			ArrayList<Node> remove = new ArrayList<Node>();
 
 			for (Rock rock : rocks) {
-				Point3D shotPos = transform.transform(Point3D.ZERO);
-				Point3D rockPos = rock.getLocalToParentTransform().transform(Point3D.ZERO);
-				if (shotPos.distance(rockPos) < rock.getRadius() + shot.getRadius()) {
+				if (shot.checkCollision(rock)) {
 					score += 100;
 
 					group.getChildren().remove(shot);
