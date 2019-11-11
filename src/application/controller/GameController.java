@@ -83,7 +83,7 @@ public class GameController {
 		scene.setCamera(camera);
 		scene.setFill(Color.BLACK);
 
-		scoreText = new Text(100, 100, "Score: 0\n Missles: 0");
+		scoreText = new Text(100, 100, "Score: 0\n Missiles: 0");
 		scoreText.setFont(new Font(30));
 		scoreText.setFill(Color.WHITE);
 		Group mainGroup = new Group(scene, scoreText);
@@ -202,7 +202,7 @@ public class GameController {
 
 	private void update(double deltaTime) {
 		//updates missle and score count at every update
-		scoreText.setText("Score: " + score+ "\n Missles: " + shots.size());
+		scoreText.setText("Score: " + score+ "\n Missiles: " + shots.size());
 		double middleX = scene.getWidth() / 2;
 		double middleY = scene.getHeight() / 2;
 
