@@ -22,17 +22,18 @@
    <children>
       <Pane prefHeight="200.0" prefWidth="200.0">
          <children>
-            <ImageView fitHeight="800.0" fitWidth="800.0">
+            <ImageView fitHeight="720.0" fitWidth="960.0" layoutY="-1.0">
                <image>
                   <Image url="@../../giphy.gif" />
                </image>
             </ImageView>
-            <Label alignment="TOP_CENTER" layoutX="143.0" prefHeight="92.0" prefWidth="301.0" text="Paused..." textAlignment="CENTER">
+            <Label alignment="TOP_CENTER" layoutX="233.0" layoutY="99.0" prefHeight="92.0" prefWidth="302.0" text=" Paused..." textAlignment="CENTER">
                <textFill>
                   <LinearGradient endX="1.0" endY="1.0">
                      <stops>
-                        <Stop color="#e11ed4" />
-                        <Stop color="WHITE" offset="1.0" />
+                        <Stop color="BLACK" />
+                        <Stop color="#bd60c6" offset="0.9987244897959184" />
+                        <Stop color="#bd60c6" offset="1.0" />
                      </stops>
                   </LinearGradient>
                </textFill>
@@ -40,10 +41,10 @@
                   <Font size="63.0" />
                </font>
             </Label>
-            <Button onAction="#resume" fx:id="resume" layoutX="203.0" layoutY="240.0" mnemonicParsing="false"  prefHeight="50.0" prefWidth="147.0" text="Resume" textAlignment="CENTER" />
-            <Button onAction="#settings" fx:id="settings" layoutX="202.0" layoutY="175.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="147.0" text="Settings" textAlignment="CENTER" />
-            <Button onAction="#menu" fx:id="menu" layoutX="202.0" layoutY="99.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="147.0" text="Return to menu" textAlignment="CENTER" />
-            <Button onAction="#quit" fx:id="quit" layoutX="203.0" layoutY="314.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="147.0" text="Quit Game" textAlignment="CENTER" />
+            <Button fx:id="resume" layoutX="277.0" layoutY="359.0" mnemonicParsing="false" onAction="#resume" prefHeight="50.0" prefWidth="214.0" text="Resume" textAlignment="CENTER" />
+            <Button fx:id="settings" layoutX="277.0" layoutY="296.0" mnemonicParsing="false" onAction="#settings" prefHeight="50.0" prefWidth="214.0" text="Settings" textAlignment="CENTER" />
+            <Button fx:id="menu" blendMode="SRC_ATOP" layoutX="277.0" layoutY="225.0" mnemonicParsing="false" onAction="#menu" prefHeight="50.0" prefWidth="214.0" text="Return to menu" textAlignment="CENTER" />
+            <Button fx:id="quit" layoutX="277.0" layoutY="424.0" mnemonicParsing="false" onAction="#quit" prefHeight="50.0" prefWidth="214.0" text="Quit Game" textAlignment="CENTER" />
          </children>
       </Pane>
    </children>
