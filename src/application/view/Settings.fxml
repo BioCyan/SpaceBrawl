@@ -7,7 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Settings">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.SettingsMenuController">
    <children>
       <GridPane gridLinesVisible="true" layoutX="42.0" layoutY="6.0" prefHeight="342.0" prefWidth="319.0" AnchorPane.bottomAnchor="52.0" AnchorPane.leftAnchor="42.0" AnchorPane.rightAnchor="239.0" AnchorPane.topAnchor="6.0">
         <columnConstraints>
@@ -50,7 +50,7 @@
             <Label fx:id="pauseLabel" text="P" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <Label text="Right-Click" GridPane.columnIndex="1" GridPane.rowIndex="8" />
             <Label fx:id="exitLabel" text="E" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <Button fx:id="rightButton" mnemonicParsing="false" onAction="#rightButton" text="Button" GridPane.columnIndex="2" />
+            <Button fx:id="rightButton" mnemonicParsing="false" onAction="#rightClick" text="Button" GridPane.columnIndex="2" />
             <Button mnemonicParsing="false" onAction="#clickButton" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <Button mnemonicParsing="false" onAction="#clickButton" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="2" />
             <Button mnemonicParsing="false" onAction="#clickButton" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="3" />

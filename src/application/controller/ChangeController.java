@@ -8,4 +8,8 @@ public class ChangeController {
     @FXML Label oldLabel;
     @FXML TextField changeTextField;
 
+    public void setScene(String oldValue){
+        oldLabel.setText(oldValue);
+    }
+
 }
