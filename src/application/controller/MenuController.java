@@ -2,6 +2,9 @@ package application.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
@@ -19,6 +22,15 @@ public class MenuController {
 
 	private Stage stage;
 
+	public void home(Stage stage) throws IOException{
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/view/MenuView.fxml"));
+		Parent root = loader.load();
+		MenuController menuController = loader.getController();
+		menuController.initialize(stage);
+		stage.setScene(new Scene(root, 800, 800));
+		stage.setTitle("Menu View");
+		stage.show();
+	}
 	@FXML
 	void start(ActionEvent e) throws IOException {
 		GameController controller = new GameController();

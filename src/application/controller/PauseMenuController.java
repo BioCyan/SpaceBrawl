@@ -1,5 +1,6 @@
 package application.controller;
 
+import application.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -47,16 +48,14 @@ public class PauseMenuController {
 
 	@FXML
 	void menu(ActionEvent e) throws IOException {
-		Parent tableParent =FXMLLoader.load(getClass().getResource("/application/view/MenuView.fxml"));
-		Scene scene = new Scene(tableParent);
-		Stage window = (Stage)((Node)e.getSource()).getScene().getWindow();
-		window.setScene(scene);
-		window.show();
+		MenuController menuController = new MenuController();
+		menuController.home(stage);
 
 	}
 
 	@FXML
 	void quit(ActionEvent e)
 	{
+        stage.close();
 	}
 }
