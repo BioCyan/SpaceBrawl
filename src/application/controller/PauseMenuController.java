@@ -40,8 +40,9 @@ public class PauseMenuController {
 	}
 
 	@FXML
-	void settings(ActionEvent e)
-	{
+	void settings(ActionEvent e) throws IOException {
+		SettingsMenuController settingsCall = new SettingsMenuController();
+		settingsCall.start(stage);
 	}
 
 	@FXML

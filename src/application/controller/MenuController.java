@@ -26,8 +26,11 @@ public class MenuController {
 	}
 
 	@FXML
-	void settings(ActionEvent e) {
+	void settings(ActionEvent e) throws IOException {
 		// TODO: needs a call to SettingsController and a close to parent stage
+		SettingsMenuController settingsMenuController = new SettingsMenuController();
+		//This calls the start method in SettingsMenuController to load Settings.fxml scene
+		settingsMenuController.start(stage);
 		System.out.println("settings called");
 	}
 
@@ -38,7 +41,9 @@ public class MenuController {
 		stage.close();
 	}
 
+	//
 	public void initialize(Stage stage) {
 		this.stage = stage;
 	}
+
 }
