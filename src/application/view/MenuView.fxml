@@ -40,7 +40,7 @@
                   </LinearGradient>
                </textFill>
             </Label>
-            <Button fx:id="startButton" blendMode="SCREEN" layoutX="285.0" layoutY="292.0" mnemonicParsing="false" onAction="#start" prefHeight="25.0" prefWidth="229.0" text="Start">
+            <Button fx:id="startButton" blendMode="SCREEN" layoutX="285.0" layoutY="292.0" mnemonicParsing="false" onAction="#start" prefHeight="25.0" prefWidth="229.0" style="-fx-background-color: #786675;" text="Start">
                <textFill>
                   <LinearGradient endX="1.0" endY="1.0">
                      <stops>
@@ -49,8 +49,11 @@
                         <Stop color="WHITE" offset="1.0" />
                      </stops>
                   </LinearGradient>
-               </textFill></Button>
-            <Button fx:id="settingsButton" blendMode="SCREEN" layoutX="285.0" layoutY="347.0" mnemonicParsing="false" onAction="#settings" prefHeight="25.0" prefWidth="229.0" text="Setting">
+               </textFill>
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font></Button>
+            <Button fx:id="settingsButton" blendMode="SCREEN" layoutX="285.0" layoutY="347.0" mnemonicParsing="false" onAction="#settings" prefHeight="25.0" prefWidth="229.0" style="-fx-background-color: #786675;" text="Setting">
                <textFill>
                   <LinearGradient endX="1.0" endY="1.0">
                      <stops>
@@ -59,8 +62,11 @@
                         <Stop color="WHITE" offset="1.0" />
                      </stops>
                   </LinearGradient>
-               </textFill></Button>
-            <Button fx:id="exitButton" blendMode="SCREEN" layoutX="285.0" layoutY="405.0" mnemonicParsing="false" onAction="#exit" prefHeight="25.0" prefWidth="229.0" text="Exit">
+               </textFill>
+               <font>
+                  <Font size="17.0" />
+               </font></Button>
+            <Button fx:id="exitButton" blendMode="SCREEN" layoutX="285.0" layoutY="405.0" mnemonicParsing="false" onAction="#exit" prefHeight="25.0" prefWidth="229.0" style="-fx-background-color: #786675;" text="Exit">
                <textFill>
                   <LinearGradient endX="1.0" endY="1.0">
                      <stops>
@@ -69,7 +75,10 @@
                         <Stop color="WHITE" offset="1.0" />
                      </stops>
                   </LinearGradient>
-               </textFill></Button>
+               </textFill>
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font></Button>
          </children>
       </Pane>
    </children>
