@@ -24,10 +24,11 @@ import javafx.stage.Stage;
  *
  */
 public class GameController {
-	World world;
+	private World world;
 	private int score;
 	private Text scoreText;
 	private PauseMenuController pauseController;
+	private boolean paused;
 
 	public void start(Stage stage) throws IOException {
 		//TODO starry background, rock textures, textured star, and laser shape
@@ -61,7 +62,12 @@ public class GameController {
 					return;
 				}
 
-				update((now - lastUpdate) / 1000000000.0);
+				if (!world.paused) {
+					update((now - lastUpdate) / 1000000000.0);
+				} else if (!paused) {
+					pauseController.init();
+					paused = true;
+				}
 
 				lastUpdate = now;
 			}
@@ -72,10 +78,6 @@ public class GameController {
 
 	private void update(double deltaTime) {
 		world.update(deltaTime);
-		if (world.paused) {
-			pauseController.init();
-			return;
-		}
 
 		//updates missile and score count at every update
 		scoreText.setText("Score: " + world.score + "\n Missiles: " + world.shots.size());

@@ -42,7 +42,6 @@ public class World extends SubScene {
 			group.getChildren().add(rock);
 		}
 
-		//scene = new SubScene(group, 960, 720, true, SceneAntialiasing.BALANCED);
 		setCamera(player);
 		setFill(Color.BLACK);
 	}

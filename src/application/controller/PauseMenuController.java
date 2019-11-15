@@ -26,12 +26,12 @@ public class PauseMenuController {
 		this.stage = stage;
 		loader = new FXMLLoader(getClass().getResource("/application/view/PauseMenu.fxml"));
 		loader.setController(this);
-		root  = loader.load();
+		root = loader.load();
 	}
 
 	public void init() {
 		this.stage.setTitle("Pause Menu");
-		this.stage.setScene(new Scene(root,800,800));
+		this.stage.setScene(new Scene(root, 960, 720));
 		this.stage.show();
 	}
 
@@ -55,8 +55,7 @@ public class PauseMenuController {
 	}
 
 	@FXML
-	void quit(ActionEvent e)
-	{
+	void quit(ActionEvent e) {
         stage.close();
 	}
 }
