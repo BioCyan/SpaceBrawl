@@ -12,6 +12,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Transform;
 import javafx.scene.transform.Translate;
+import javafx.stage.Stage;
 
 /**
  * a class to model the player's location and actions.
@@ -23,6 +24,7 @@ import javafx.scene.transform.Translate;
 public class Player extends PerspectiveCamera {
 	private GameController controller;
 	private Scene scene;
+	private Stage stage;
 	private double mouseX;
 	private double mouseY;
 	private double oldMouseX;
@@ -41,8 +43,9 @@ public class Player extends PerspectiveCamera {
 		setTranslateZ(-5);
 	}
 
-	public void connect(Scene scene) {
+	public void connect(Scene scene, Stage stage) {
 		this.scene = scene;
+		this.stage = stage;
 		EventHandler<MouseEvent> handler = new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
@@ -126,9 +129,6 @@ public class Player extends PerspectiveCamera {
 	}
 
 	public void update(double deltaTime) {
-		double middleX = scene.getWidth() / 2;
-		double middleY = scene.getHeight() / 2;
-
 		double yaw = 0.1 * (mouseX - oldMouseX);
 		double pitch = 0.1 * (mouseY - oldMouseY);
 		Rotate yawRotate = new Rotate(yaw, Rotate.Y_AXIS);
@@ -157,6 +157,8 @@ public class Player extends PerspectiveCamera {
 		// and we'll be running on machines with only Java 8
 		// so we're using the AWT API for this which is not safe
 		try {
+			double middleX = scene.getWidth() / 2 + stage.getX();
+			double middleY = scene.getHeight() / 2 + stage.getY();
 			Robot robot = new Robot();
 			robot.mouseMove((int)middleX, (int)middleY);
 			mouseX = (int)middleX;

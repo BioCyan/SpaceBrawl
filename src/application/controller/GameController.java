@@ -93,7 +93,7 @@ public class GameController {
 			}
 		}.start();
 
-		player.connect(mainScene);
+		player.connect(mainScene, stage);
 	}
 
 	public void pause() {
