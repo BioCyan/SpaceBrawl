@@ -24,16 +24,9 @@ import javafx.stage.Stage;
  *
  */
 public class GameController {
-	private Player player;
-
-	private SubScene scene;
-	public Group group;
-	public Sphere star;
-	private ArrayList<Rock> rocks;
-	public ArrayList<PlasmaBolt> shots;
+	World world;
 	private int score;
 	private Text scoreText;
-	private boolean paused = false;
 	private PauseMenuController pauseController;
 
 	public void start(Stage stage) throws IOException {
@@ -41,39 +34,21 @@ public class GameController {
 
 
 		//loads controller at startup to prevent breaking of game pace
+		world = new World();
 		pauseController = new PauseMenuController(stage);
-		rocks = new ArrayList<>();
-		shots = new ArrayList<>();
-		player = new Player(this);
-
-		PointLight light = new PointLight();
-		AmbientLight aLight = new AmbientLight(Color.rgb(24, 24, 24));
-		star = new Sphere(1);
-
-		group = new Group(player, star, light, aLight);
-
-		for (int i = 0; i < 32; i++) {
-			Rock rock = new Rock();
-			rocks.add(rock);
-			group.getChildren().add(rock);
-		}
-
-		scene = new SubScene(group, 960, 720, true, SceneAntialiasing.BALANCED);
-		scene.setCamera(player);
-		scene.setFill(Color.BLACK);
 
 		scoreText = new Text(100, 100, "Score: 0\n Missiles: 0");
 		scoreText.setFont(new Font(30));
 		scoreText.setFill(Color.WHITE);
-		Group mainGroup = new Group(scene, scoreText);
+		Group mainGroup = new Group(world, scoreText);
 		Scene mainScene = new Scene(mainGroup, 960, 720);
-		scene.widthProperty().bind(mainScene.widthProperty());
-		scene.heightProperty().bind(mainScene.heightProperty());
+		world.widthProperty().bind(mainScene.widthProperty());
+		world.heightProperty().bind(mainScene.heightProperty());
 
 		stage.setTitle("Space Brawl");
 		stage.setScene(mainScene);
 		//stage.setMaximized(true);
-		scene.setCursor(Cursor.NONE);
+		mainScene.setCursor(Cursor.NONE);
 		stage.show();
 
 		new AnimationTimer() {
@@ -86,47 +61,23 @@ public class GameController {
 					return;
 				}
 
-				if(!paused)
-					update((now - lastUpdate) / 1000000000.0);
+				update((now - lastUpdate) / 1000000000.0);
 
 				lastUpdate = now;
 			}
 		}.start();
 
-		player.connect(mainScene, stage);
-	}
-
-	public void pause() {
-		paused = true;
-		pauseController.init();
-	}
-
-	public void addShot(PlasmaBolt shot) {
-		shots.add(shot);
-		group.getChildren().add(shot);
+		world.connect(mainScene, stage);
 	}
 
 	private void update(double deltaTime) {
-		//updates missile and score count at every update
-		scoreText.setText("Score: " + score+ "\n Missiles: " + shots.size());
-		player.update(deltaTime);
-
-		for (PlasmaBolt shot : shots) {
-			shot.update(deltaTime);
-
-			ArrayList<Node> remove = new ArrayList<Node>();
-
-			for (Rock rock : rocks) {
-				if (shot.checkCollision(rock)) {
-					score += 100;
-					group.getChildren().remove(shot);
-					remove.add(rock);
-				}
-			}
-			for (Node rock : remove) {
-				rocks.remove(rock);
-				group.getChildren().remove(rock);
-			}
+		world.update(deltaTime);
+		if (world.paused) {
+			pauseController.init();
+			return;
 		}
+
+		//updates missile and score count at every update
+		scoreText.setText("Score: " + world.score + "\n Missiles: " + world.shots.size());
 	}
 }

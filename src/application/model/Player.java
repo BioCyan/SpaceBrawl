@@ -22,7 +22,7 @@ import javafx.stage.Stage;
  *
  */
 public class Player extends PerspectiveCamera {
-	private GameController controller;
+	private World world;
 	private Scene scene;
 	private Stage stage;
 	private double mouseX;
@@ -35,9 +35,9 @@ public class Player extends PerspectiveCamera {
 	private Point3D moveDir = Point3D.ZERO;
 	private Point3D velocity = new Point3D(-1.2, 0, 0);
 
-	public Player(GameController controller) {
+	public Player(World world) {
 		super(true);
-		this.controller = controller;
+		this.world = world;
 		setFieldOfView(70);
 		setVerticalFieldOfView(true);
 		setTranslateZ(-5);
@@ -58,7 +58,7 @@ public class Player extends PerspectiveCamera {
 					transform = camTransform.createConcatenation(transform);
 
 					PlasmaBolt shot = new PlasmaBolt(transform);
-					controller.addShot(shot);
+					world.addShot(shot);
 				}
 			}
 		};
@@ -76,7 +76,7 @@ public class Player extends PerspectiveCamera {
 			@Override
 			public void handle(KeyEvent event) {
 				if (event.getCode().equals(KeyCode.ESCAPE)) {
-					controller.pause();
+					world.pause();
 					return;
 				}
 
@@ -135,7 +135,7 @@ public class Player extends PerspectiveCamera {
 		Rotate pitchRotate = new Rotate(-pitch, Rotate.X_AXIS);
 
 		Transform oldTransform = getLocalToSceneTransform();
-		Point3D disp = controller.star.localToScene(Point3D.ZERO, false)
+		Point3D disp = world.star.localToScene(Point3D.ZERO, false)
 			.subtract(localToScene(Point3D.ZERO, false));
 		double force = 10 / disp.dotProduct(disp);
 		Point3D accelBy = oldTransform.deltaTransform(moveDir.multiply(1*deltaTime));
