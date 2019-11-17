@@ -6,7 +6,7 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620" prefWidth="920" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620" prefWidth="920" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.PauseMenuController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
   </columnConstraints>
@@ -14,14 +14,14 @@
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Pane prefHeight="200.0" prefWidth="200.0">
+      <Pane prefHeight="720.0" prefWidth="960.0">
          <children>
             <ImageView fitHeight="720.0" fitWidth="960.0" layoutY="-1.0">
                <image>
                   <Image url="@../../giphy.gif" />
                </image>
             </ImageView>
-            <Label alignment="TOP_CENTER" layoutX="233.0" layoutY="99.0" prefHeight="92.0" prefWidth="302.0" text=" Paused..." textAlignment="CENTER">
+            <Label alignment="TOP_CENTER" layoutX="330.0" layoutY="99.0" prefHeight="92.0" prefWidth="300.0" text=" Paused..." textAlignment="CENTER">
                <textFill>
                   <LinearGradient endX="1.0" endY="1.0">
                      <stops>
@@ -35,7 +35,7 @@
                   <Font size="63.0" />
                </font>
             </Label>
-            <Button fx:id="resume" blendMode="SCREEN" layoutX="277.0" layoutY="359.0" mnemonicParsing="false" onAction="#resume" prefHeight="50.0" prefWidth="214.0" style="-fx-background-color: #786675;" text="Resume" textAlignment="CENTER">
+            <Button fx:id="resume" blendMode="SCREEN" layoutX="365.0" layoutY="359.0" mnemonicParsing="false" onAction="#resume" prefHeight="50.0" prefWidth="230.0" style="-fx-background-color: #786675;" text="Resume" textAlignment="CENTER">
                <font>
                   <Font size="17.0" />
                </font>
@@ -55,7 +55,7 @@
                      </stops>
                   </LinearGradient>
                </textFill></Button>
-            <Button fx:id="settings" blendMode="SCREEN" layoutX="277.0" layoutY="296.0" mnemonicParsing="false" onAction="#settings" prefHeight="50.0" prefWidth="214.0" style="-fx-background-color: #786675;" text="Settings" textAlignment="CENTER">
+            <Button fx:id="settings" blendMode="SCREEN" layoutX="365.0" layoutY="296.0" mnemonicParsing="false" onAction="#settings" prefHeight="50.0" prefWidth="230.0" style="-fx-background-color: #786675;" text="Settings" textAlignment="CENTER">
                <font>
                   <Font size="17.0" />
                </font>
@@ -75,7 +75,7 @@
                      </stops>
                   </LinearGradient>
                </textFill></Button>
-            <Button fx:id="menu" blendMode="SCREEN" layoutX="277.0" layoutY="225.0" mnemonicParsing="false" onAction="#menu" prefHeight="50.0" prefWidth="214.0" style="-fx-background-color: #786675;" text="Return to menu" textAlignment="CENTER">
+            <Button fx:id="menu" blendMode="SCREEN" layoutX="365.0" layoutY="225.0" mnemonicParsing="false" onAction="#menu" prefHeight="50.0" prefWidth="230.0" style="-fx-background-color: #786675;" text="Return to menu" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
@@ -95,7 +95,7 @@
                      </stops>
                   </LinearGradient>
                </textFill></Button>
-            <Button fx:id="quit" blendMode="SCREEN" layoutX="277.0" layoutY="424.0" mnemonicParsing="false" onAction="#quit" prefHeight="50.0" prefWidth="214.0" style="-fx-background-color: #786675;" text="Quit Game" textAlignment="CENTER">
+            <Button fx:id="quit" blendMode="SCREEN" layoutX="365.0" layoutY="424.0" mnemonicParsing="false" onAction="#quit" prefHeight="50.0" prefWidth="230.0" style="-fx-background-color: #786675;" text="Quit Game" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>

@@ -18,44 +18,23 @@ import java.io.IOException;
  * an .fxml and will give the option to quit the game or to open the settings menu.
  */
 public class PauseMenuController {
-	private Stage stage;
-	private FXMLLoader loader;
-	private Parent root;
-
-	public PauseMenuController(Stage stage) throws IOException {
-		this.stage = stage;
-		loader = new FXMLLoader(getClass().getResource("/application/view/PauseMenu.fxml"));
-		loader.setController(this);
-		root = loader.load();
-	}
-
-	public void init() {
-		this.stage.setTitle("Pause Menu");
-		this.stage.setScene(new Scene(root, 960, 720));
-		this.stage.show();
-	}
-
 	@FXML
 	void resume(ActionEvent e) throws IOException {
-		GameController controller = new GameController();
-		controller.start(stage);
+		Main.switchScene(Main.SceneType.Game);
 	}
 
 	@FXML
 	void settings(ActionEvent e) throws IOException {
-		SettingsMenuController settingsCall = new SettingsMenuController();
-		settingsCall.start(stage);
+		Main.switchScene(Main.SceneType.Settings);
 	}
 
 	@FXML
 	void menu(ActionEvent e) throws IOException {
-		MenuController menuController = new MenuController();
-		menuController.home(stage);
-
+		Main.switchScene(Main.SceneType.Main);
 	}
 
 	@FXML
 	void quit(ActionEvent e) {
-        stage.close();
+		Main.exit();
 	}
 }

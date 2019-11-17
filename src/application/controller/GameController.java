@@ -1,5 +1,6 @@
 package application.controller;
 
+import application.Main;
 import java.io.IOException;
 import java.util.ArrayList;
 import application.model.*;
@@ -27,32 +28,35 @@ public class GameController {
 	private World world;
 	private int score;
 	private Text scoreText;
-	private PauseMenuController pauseController;
 	private boolean paused;
+	private AnimationTimer timer;
+	private Scene mainScene;
 
-	public void start(Stage stage) throws IOException {
-		//TODO starry background, rock textures, textured star, and laser shape
-
-
-		//loads controller at startup to prevent breaking of game pace
+	public GameController() {
 		world = new World();
-		pauseController = new PauseMenuController(stage);
+		paused = false;
 
 		scoreText = new Text(100, 100, "Score: 0\n Missiles: 0");
 		scoreText.setFont(new Font(30));
 		scoreText.setFill(Color.WHITE);
 		Group mainGroup = new Group(world, scoreText);
-		Scene mainScene = new Scene(mainGroup, 960, 720);
+		mainScene = new Scene(mainGroup, 960, 720);
+
 		world.widthProperty().bind(mainScene.widthProperty());
 		world.heightProperty().bind(mainScene.heightProperty());
+	}
 
+	public void start(Stage stage) {
+		//TODO starry background, rock textures, textured star, and laser shape
+		paused = false;
+		world.paused = false;
 		stage.setTitle("Space Brawl");
-		stage.setScene(mainScene);
 		//stage.setMaximized(true);
 		mainScene.setCursor(Cursor.NONE);
+		stage.setScene(mainScene);
 		stage.show();
 
-		new AnimationTimer() {
+		timer = new AnimationTimer() {
 			long lastUpdate = -1;
 
 			@Override
@@ -65,13 +69,15 @@ public class GameController {
 				if (!world.paused) {
 					update((now - lastUpdate) / 1000000000.0);
 				} else if (!paused) {
-					pauseController.init();
+					Main.switchScene(Main.SceneType.Pause);
 					paused = true;
+					timer.stop();
 				}
 
 				lastUpdate = now;
 			}
-		}.start();
+		};
+		timer.start();
 
 		world.connect(mainScene, stage);
 	}
