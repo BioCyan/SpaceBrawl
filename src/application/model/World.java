@@ -61,20 +61,27 @@ public class World extends SubScene {
 		for (PlasmaBolt shot : shots) {
 			shot.update(deltaTime);
 
-			ArrayList<Node> remove = new ArrayList<Node>();
-
 			for (Rock rock : rocks) {
 				if (shot.checkCollision(rock)) {
 					score += 100;
 					group.getChildren().remove(shot);
-					remove.add(rock);
+					rock.explode();
 				}
 			}
-			for (Node rock : remove) {
-				rocks.remove(rock);
-				group.getChildren().remove(rock);
+		}
+
+		ArrayList<Rock> remove = new ArrayList<>();
+		for (Rock rock : rocks) {
+			rock.update(deltaTime);
+			if (rock.isDestroyed()) {
+				remove.add(rock);
 			}
 		}
+		for (Rock rock : remove) {
+			rocks.remove(rock);
+			group.getChildren().remove(rock);
+		}
+
 	}
 
 	public void pause() {
