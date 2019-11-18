@@ -54,18 +54,22 @@
                   <Font name="System Bold" size="17.0" />
                </font></Button>
             <Button fx:id="settingsButton" blendMode="SCREEN" layoutX="365.0" layoutY="347.0" mnemonicParsing="false" onAction="#settings" prefHeight="25.0" prefWidth="230.0" style="-fx-background-color: #786675;" text="Setting">
+               <font>
+                  <Font size="17.0" />
+               </font>
                <textFill>
                   <LinearGradient endX="1.0" endY="1.0">
                      <stops>
-                        <Stop color="RED" />
-                        <Stop color="#2400ff" offset="0.8958810068649886" />
-                        <Stop color="WHITE" offset="1.0" />
+                        <Stop color="#ff1d00" />
+                        <Stop color="#ff1a00" offset="0.007653061224489797" />
+                        <Stop color="#ff1a00" offset="0.007653061224489797" />
+                        <Stop color="#170eeb" offset="0.9948979591836735" />
+                        <Stop color="#ff0909" offset="0.9987244897959184" />
+                        <Stop color="#1100ff" offset="0.9987244897959184" />
+                        <Stop color="#2c12d8" offset="1.0" />
                      </stops>
                   </LinearGradient>
-               </textFill>
-               <font>
-                  <Font size="17.0" />
-               </font></Button>
+               </textFill></Button>
             <Button fx:id="exitButton" blendMode="SCREEN" layoutX="365.0" layoutY="405.0" mnemonicParsing="false" onAction="#exit" prefHeight="25.0" prefWidth="230.0" style="-fx-background-color: #786675;" text="Exit">
                <textFill>
                   <LinearGradient endX="1.0" endY="1.0">
