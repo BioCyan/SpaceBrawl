@@ -37,10 +37,11 @@ public class Player extends PerspectiveCamera {
 
 	public Player(World world) {
 		super(true);
-		this.world = world;
 		setFieldOfView(70);
 		setVerticalFieldOfView(true);
 		setTranslateZ(-5);
+		this.world = world;
+		settings = new GameSettings();
 	}
 
 	public void connect(Scene scene, Stage stage) {
@@ -75,7 +76,7 @@ public class Player extends PerspectiveCamera {
 
 			@Override
 			public void handle(KeyEvent event) {
-				if (event.getCode().equals(KeyCode.ESCAPE)) {
+				if (event.getCode() == settings.getPause()) {
 					world.pause();
 					return;
 				}
@@ -89,17 +90,17 @@ public class Player extends PerspectiveCamera {
 					return;
 				}
 
-				if (event.getCode() == KeyCode.W) {
+				if (event.getCode() == settings.getForward()) {
 					wDown = newState;
-				} else if (event.getCode() == KeyCode.A) {
+				} else if (event.getCode() == settings.getLeft()) {
 					aDown = newState;
-				} else if (event.getCode() == KeyCode.S) {
+				} else if (event.getCode() == settings.getBack()) {
 					sDown = newState;
-				} else if (event.getCode() == KeyCode.D) {
+				} else if (event.getCode() == settings.getRight()) {
 					dDown = newState;
-				} else if (event.getCode() == KeyCode.SPACE) {
+				} else if (event.getCode() == settings.getUp()) {
 					spaceDown = newState;
-				} else if (event.getCode() == KeyCode.CONTROL) {
+				} else if (event.getCode() == settings.getDown()) {
 					ctrlDown = newState;
 				}
 

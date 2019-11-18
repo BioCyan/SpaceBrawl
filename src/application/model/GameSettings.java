@@ -1,6 +1,7 @@
 package application.model;
 
 import javafx.scene.input.KeyCode;
+
 /**
  * A class to hold values set by the user in the settings menu
  * 
@@ -9,44 +10,71 @@ import javafx.scene.input.KeyCode;
  *
  */
 public class GameSettings {
-	// used to determine how sensitive the controls are to mouse movement
 	private double sensitivity;
-	// used to move player location forward
 	private KeyCode forward;
-	// used to move player location backwards 
 	private KeyCode backward;
-	// used to move player location left
 	private KeyCode left;
-	// used to move player location right
 	private KeyCode right;
+	private KeyCode up;
+	private KeyCode down;
+	private KeyCode pause;
+
 	/**
 	 * setter function for forward element
 	 * @param set KeyCode that should be assigned
 	 */
 	public void setForward(KeyCode set) {
-		this.forward = set;
+		forward = set;
 	}
+
 	/**
 	 * setter function for backward element
 	 * @param set KeyCode that should be assigned
 	 */
 	public void setBack(KeyCode set) {
-		this.backward = set;
+		backward = set;
 	}
+
 	/**
 	 * setter function for right element
 	 * @param set KeyCode that should be assigned
 	 */
 	public void setRight(KeyCode set) {
-		this.right = set;
+		right = set;
 	}
+
 	/**
 	 * setter function for left element
 	 * @param set KeyCode that should be assigned
 	 */
 	public void setLeft(KeyCode set) {
-		this.left = set;
+		left = set;
 	}
+
+	/**
+	 * setter function for up element
+	 * @param set KeyCode that should be assigned
+	 */
+	public void setUp(KeyCode set) {
+		up = set;
+	}
+
+	/**
+	 * setter function for down element
+	 * @param set KeyCode that should be assigned
+	 */
+	public void setDown(KeyCode set) {
+		down = set;
+	}
+
+	/**
+	 * setter function for down element
+	 * @param set KeyCode that should be assigned
+	 */
+	public void setPause(KeyCode set) {
+		pause = set;
+	}
+
 	/**
 	 * setter function for sensitivity element
 	 * @param set double that should be assigned
@@ -54,30 +82,15 @@ public class GameSettings {
 	public void setSensitivity(double set) {
 		this.sensitivity = set;
 	}
-	/**
-	 * Original setter function called by constructor. 
-	 * 
-	 * @param f value to set forward to
-	 * @param b value to set backward to
-	 * @param l value to set left to
-	 * @param r value to set right to
-	 * @param s value to set sensitivity to
-	 */
-	public void setDefualts(KeyCode f, KeyCode b, KeyCode l, KeyCode r, double s ) {
-		setForward(f);
-		setBack(b);
-		setLeft(l);
-		setRight(r);
-		setSensitivity(s);
-		
-	}
+
 	/**
 	 * getter for KeyCode held in forward
-	 * @return 
+	 * @return
 	 */
 	public KeyCode getForward() {
 		return forward;
 	}
+
 	/**
 	 * getter for KeyCode held in backward
 	 * @return
@@ -85,6 +98,7 @@ public class GameSettings {
 	public KeyCode getBack() {
 		return backward;
 	}
+
 	/**
 	 * getter for KeyCode held in left
 	 * @return
@@ -92,13 +106,39 @@ public class GameSettings {
 	public KeyCode getLeft() {
 		return left;
 	}
+
 	/**
 	 * getter for KeyCode held in right
 	 * @return
 	 */
-	public KeyCode getright() {
+	public KeyCode getRight() {
 		return right;
 	}
+
+	/**
+	 * getter for KeyCode held in up
+	 * @return
+	 */
+	public KeyCode getUp() {
+		return up;
+	}
+
+	/**
+	 * getter for KeyCode held in down
+	 * @return
+	 */
+	public KeyCode getDown() {
+		return down;
+	}
+
+	/**
+	 * getter for KeyCode held in pause
+	 * @return
+	 */
+	public KeyCode getPause() {
+		return pause;
+	}
+
 	/**
 	 * getter for double held in sensitivity
 	 * @return
@@ -106,13 +146,21 @@ public class GameSettings {
 	public double getSensitivity() {
 		return sensitivity;
 	}
+
 	/**
-	 * default constructor 
+	 * default constructor
 	 * 
 	 * sets forward to KeyCode.W, backward to KeyCode.S, left to KeyCode.A, right to KeyCode.D and
 	 * sensitivity to 1.
 	 */
-	public GameSettings(){
-		setDefualts(KeyCode.W, KeyCode.S, KeyCode.A, KeyCode.D, 1);
+	public GameSettings() {
+		setSensitivity(1);
+		setForward(KeyCode.W);
+		setBack(KeyCode.S);
+		setLeft(KeyCode.A);
+		setRight(KeyCode.D);
+		setUp(KeyCode.SPACE);
+		setDown(KeyCode.CONTROL);
+		setPause(KeyCode.ESCAPE);
 	}
 }
