@@ -15,6 +15,7 @@ public class ChangeController {
     @FXML Label oldLabel;
     @FXML TextField changeTextField;
 
+    //The start method is used to change the scenes in the project
     public void start(Stage stage, String labelName) throws IOException{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/view/ControllChange.fxml"));
         Parent root = loader.load();
@@ -27,9 +28,11 @@ public class ChangeController {
         stage.show();
     }
 
+    //The setScene method gets the old label and sets it
     public void setScene(String oldValue){
         oldLabel.setText(oldValue);
     }
 
+    //The initialize method helps to set the scene for when scene is changed
     public void initialize(Stage stage){ this.stage = stage; }
 }

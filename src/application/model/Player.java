@@ -35,6 +35,7 @@ public class Player extends PerspectiveCamera {
 	private Point3D moveDir = Point3D.ZERO;
 	private Point3D velocity = new Point3D(-1.2, 0, 0);
 
+	//The Player default constructor is used to load the players view
 	public Player(World world) {
 		super(true);
 		setFieldOfView(70);
@@ -74,6 +75,7 @@ public class Player extends PerspectiveCamera {
 			private boolean spaceDown;
 			private boolean ctrlDown;
 
+			//The handle method is the action handle for all the player controls in the game
 			@Override
 			public void handle(KeyEvent event) {
 				if (event.getCode() == settings.getPause()) {
@@ -129,6 +131,7 @@ public class Player extends PerspectiveCamera {
 		scene.setOnKeyReleased(keyHandler);
 	}
 
+	//The update method is to update the players view while in the game
 	public void update(double deltaTime) {
 		double yaw = 0.1 * (mouseX - oldMouseX);
 		double pitch = 0.1 * (mouseY - oldMouseY);

@@ -18,21 +18,26 @@ import java.io.IOException;
  * an .fxml and will give the option to quit the game or to open the settings menu.
  */
 public class PauseMenuController {
+
+	//The resume method is the action handle for when the Resume buttton is clicked to go to the main menu
 	@FXML
 	void resume(ActionEvent e) throws IOException {
 		Main.switchScene(Main.SceneType.Game);
 	}
 
+	//The setting method is the action handle for when the Settings button is clicked to go to the change setting scene
 	@FXML
 	void settings(ActionEvent e) throws IOException {
 		Main.switchScene(Main.SceneType.Settings);
 	}
 
+	//The menu method is the action handle for when the Menu button is clicked to go to the main menu scene
 	@FXML
 	void menu(ActionEvent e) throws IOException {
 		Main.switchScene(Main.SceneType.Main);
 	}
 
+	//The quit method is the action handle for when the Quit button is clicked to quit the game
 	@FXML
 	void quit(ActionEvent e) {
 		Main.exit();

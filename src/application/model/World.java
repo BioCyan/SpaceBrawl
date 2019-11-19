@@ -23,6 +23,7 @@ public class World extends SubScene {
 	public ArrayList<Rock> rocks;
 	public ArrayList<PlasmaBolt> shots;
 
+	//The World default constructor is used to load the effect, color, and view of the game screen
 	public World() {
 		super(new Group(), 960, 720, true,  SceneAntialiasing.BALANCED);
 		rocks = new ArrayList<>();
@@ -46,10 +47,12 @@ public class World extends SubScene {
 		setFill(Color.BLACK);
 	}
 
+	//The connect method connects the controller events in the game
 	public void connect(Scene scene, Stage stage) {
 		player.connect(scene, stage);
 	}
 
+	//The update method is used to keep a score count for when a rocket hits a rock it updates the score count
 	public void update(double deltaTime) {
 		if (paused) {
 			return;
@@ -84,10 +87,12 @@ public class World extends SubScene {
 
 	}
 
+	//The pause method pauses the game for when the esc button is clicced
 	public void pause() {
 		paused = true;
 	}
 
+	//The addShot method shoots rockets for when a mouse right click button is clicked
 	public void addShot(PlasmaBolt shot) {
 		shots.add(shot);
 		((Group)getRoot()).getChildren().add(shot);

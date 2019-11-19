@@ -19,6 +19,7 @@ import javafx.event.ActionEvent;
 import java.io.IOException;
 
 public class SettingsMenuController {
+
 	public void clickButton(ActionEvent event) {
 
 	}
