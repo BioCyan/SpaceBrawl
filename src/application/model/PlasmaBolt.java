@@ -23,7 +23,7 @@ public class PlasmaBolt extends Sphere {
 		getTransforms().setAll(transform);
 	}
 
-	//The update method is to update a rockets movement
+	//The update method is to update a rockets movementx
 	public void update(double deltaTime) {
 		Translate translate = new Translate(0, 0, 10 * deltaTime);
 		Transform transform = getLocalToParentTransform().createConcatenation(translate);
