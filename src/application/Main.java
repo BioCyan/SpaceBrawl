@@ -1,10 +1,10 @@
-// This was just a quick and dirty prototype to hint at what's possible
-// Much of what's in here should be replaced with proper abstractions
 package application;
 
 import application.controller.GameController;
 import application.controller.MenuController;
 import application.controller.MainMenuController;
+import application.model.Game;
+import application.model.GameSettings;
 import java.util.HashMap;
 import java.io.IOException;
 import javafx.application.Application;
@@ -23,6 +23,9 @@ public class Main extends Application {
 		Game,
 	};
 
+	public static Game game;
+	public static GameSettings settings;
+
 	private static GameController gameController;
 	private static HashMap<SceneType, Parent> roots;
 	private static Stage stage;
@@ -32,15 +35,19 @@ public class Main extends Application {
 	public void start(Stage primaryStage) throws IOException {
 		stage = primaryStage;
 		preloadScenes();
-		gameController = new GameController();
 		switchScene(SceneType.Main);
 		stage.show();
+
+		settings = new GameSettings();
 	}
 
 	public static void switchScene(SceneType sceneType) {
 		if (sceneType == SceneType.Game) {
+			gameController = new GameController();
 			gameController.start(stage);
 			return;
+		} else {
+			gameController = null;
 		}
 
 		Parent root = roots.get(sceneType);

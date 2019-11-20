@@ -1,5 +1,6 @@
 package application.model;
 
+import application.Main;
 import application.controller.GameController;
 import java.awt.Robot;
 import javafx.event.EventHandler;
@@ -22,7 +23,7 @@ import javafx.stage.Stage;
  *
  */
 public class Player extends PerspectiveCamera {
-	private World world;
+	private Game game;
 	private Scene scene;
 	private Stage stage;
 	private double mouseX;
@@ -31,18 +32,18 @@ public class Player extends PerspectiveCamera {
 	private double oldMouseY;
 	private double yaw;
 	private double pitch;
-	private GameSettings settings;
+	//private GameSettings settings;
 	private Point3D moveDir = Point3D.ZERO;
 	private Point3D velocity = new Point3D(-1.2, 0, 0);
 
 	//The Player default constructor is used to load the players view
-	public Player(World world) {
+	public Player(Game game) {
 		super(true);
 		setFieldOfView(70);
 		setVerticalFieldOfView(true);
 		setTranslateZ(-5);
-		this.world = world;
-		settings = new GameSettings();
+		this.game = game;
+		//settings = new GameSettings();
 	}
 
 	public void connect(Scene scene, Stage stage) {
@@ -60,7 +61,7 @@ public class Player extends PerspectiveCamera {
 					transform = camTransform.createConcatenation(transform);
 
 					PlasmaBolt shot = new PlasmaBolt(transform);
-					world.addShot(shot);
+					game.addShot(shot);
 				}
 			}
 		};
@@ -78,8 +79,10 @@ public class Player extends PerspectiveCamera {
 			//The handle method is the action handle for all the player controls in the game
 			@Override
 			public void handle(KeyEvent event) {
+				GameSettings settings = Main.settings;
+
 				if (event.getCode() == settings.getPause()) {
-					world.pause();
+					game.pause();
 					return;
 				}
 
@@ -133,13 +136,15 @@ public class Player extends PerspectiveCamera {
 
 	//The update method is to update the players view while in the game
 	public void update(double deltaTime) {
+		GameSettings settings = Main.settings;
+
 		double yaw = 0.1 * (mouseX - oldMouseX);
 		double pitch = 0.1 * (mouseY - oldMouseY);
 		Rotate yawRotate = new Rotate(yaw, Rotate.Y_AXIS);
 		Rotate pitchRotate = new Rotate(-pitch, Rotate.X_AXIS);
 
 		Transform oldTransform = getLocalToSceneTransform();
-		Point3D disp = world.star.localToScene(Point3D.ZERO, false)
+		Point3D disp = game.star.localToScene(Point3D.ZERO, false)
 			.subtract(localToScene(Point3D.ZERO, false));
 		double force = 10 / disp.dotProduct(disp);
 		Point3D accelBy = oldTransform.deltaTransform(moveDir.multiply(1*deltaTime));

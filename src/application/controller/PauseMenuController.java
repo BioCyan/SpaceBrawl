@@ -34,6 +34,7 @@ public class PauseMenuController {
 	//The menu method is the action handle for when the Menu button is clicked to go to the main menu scene
 	@FXML
 	void menu(ActionEvent e) throws IOException {
+		Main.game = null;
 		Main.switchScene(Main.SceneType.Main);
 	}
 

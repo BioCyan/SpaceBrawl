@@ -1,6 +1,7 @@
 package application.controller;
 
 import application.Main;
+import application.model.Game;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,6 +21,7 @@ public class MainMenuController {
 	//The start method is the action handle for Start button in main menu to began the game
 	@FXML
 	void start(ActionEvent e) throws IOException {
+		Main.game = new Game();
 		Main.switchScene(Main.SceneType.Game);
 	}
 

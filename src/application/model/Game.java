@@ -7,14 +7,13 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Sphere;
 import javafx.stage.Stage;
 
-public class World extends SubScene {
+public class Game extends SubScene {
 	private double mouseX;
 	private double mouseY;
 	private double oldMouseX;
 	private double oldMouseY;
 	private double yaw;
 	private double pitch;
-	private GameSettings settings;
 
 	public int score;
 	public boolean paused = false;
@@ -23,8 +22,8 @@ public class World extends SubScene {
 	public ArrayList<Rock> rocks;
 	public ArrayList<PlasmaBolt> shots;
 
-	//The World default constructor is used to load the effect, color, and view of the game screen
-	public World() {
+	//The Game default constructor is used to load the effect, color, and view of the game screen
+	public Game() {
 		super(new Group(), 960, 720, true,  SceneAntialiasing.BALANCED);
 		rocks = new ArrayList<>();
 		shots = new ArrayList<>();

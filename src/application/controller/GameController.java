@@ -25,7 +25,8 @@ import javafx.stage.Stage;
  *
  */
 public class GameController {
-	private World world;
+	private Game game;
+	private boolean active;
 	private int score;
 	private Text scoreText;
 	private boolean paused;
@@ -34,24 +35,24 @@ public class GameController {
 
 	//The gamecontroller is a default constructor to load up the game controller
 	public GameController() {
-		world = new World();
-		paused = false;
+		game = Main.game;
 
 		scoreText = new Text(100, 100, "Score: 0\n Missiles: 0");
 		scoreText.setFont(new Font(30));
 		scoreText.setFill(Color.WHITE);
-		Group mainGroup = new Group(world, scoreText);
+		Group mainGroup = new Group(game, scoreText);
 		mainScene = new Scene(mainGroup, 960, 720);
 
-		world.widthProperty().bind(mainScene.widthProperty());
-		world.heightProperty().bind(mainScene.heightProperty());
+		game.widthProperty().bind(mainScene.widthProperty());
+		game.heightProperty().bind(mainScene.heightProperty());
 	}
 
 	//The start method is the action handle for when button Start is clicked in main menu to go to game scene
 	public void start(Stage stage) {
 		//TODO starry background, rock textures, textured star, and laser shape
+
 		paused = false;
-		world.paused = false;
+		game.paused = false;
 		stage.setTitle("Space Brawl");
 		//stage.setMaximized(true);
 		mainScene.setCursor(Cursor.NONE);
@@ -68,7 +69,7 @@ public class GameController {
 					return;
 				}
 
-				if (!world.paused) {
+				if (!game.paused) {
 					update((now - lastUpdate) / 1000000000.0);
 				} else if (!paused) {
 					Main.switchScene(Main.SceneType.Pause);
@@ -81,14 +82,14 @@ public class GameController {
 		};
 		timer.start();
 
-		world.connect(mainScene, stage);
+		game.connect(mainScene, stage);
 	}
 
 	//The update method is a score count that is used to keep track of all rocks hit in the game
 	private void update(double deltaTime) {
-		world.update(deltaTime);
+		game.update(deltaTime);
 
 		//updates missile and score count at every update
-		scoreText.setText("Score: " + world.score + "\n Missiles: " + world.shots.size());
+		scoreText.setText("Score: " + game.score + "\n Missiles: " + game.shots.size());
 	}
 }

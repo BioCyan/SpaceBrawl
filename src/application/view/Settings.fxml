@@ -16,10 +16,10 @@
    <children>
       <ImageView fitHeight="720.0" fitWidth="960.0">
          <image>
-            <Image url="@../../104385.jpg" />
+            <Image url="@../../../resources/104385.jpg" />
          </image>
       </ImageView>
-      <GridPane gridLinesVisible="true" layoutX="-1.0" layoutY="6.0" prefHeight="662.0" prefWidth="960.0" AnchorPane.bottomAnchor="52.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="6.0">
+      <GridPane fx:id="grid" gridLinesVisible="true" layoutX="-1.0" layoutY="6.0" prefHeight="662.0" prefWidth="960.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -108,13 +108,13 @@
                      </stops>
                   </LinearGradient>
                </textFill></Label>
-            <Button fx:id="rightButton" blendMode="SCREEN" mnemonicParsing="false" style="-fx-background-color: #8d43ab;" text="Button" textFill="#1eff00" GridPane.columnIndex="2" />
-            <Button blendMode="SCREEN" mnemonicParsing="false" onAction="#clickButton" style="-fx-background-color: #8d43ab;" text="Button" textFill="#2fff00" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Button blendMode="SCREEN" layoutX="52.0" mnemonicParsing="false" onAction="#clickButton" style="-fx-background-color: #8d43ab;" text="Button" textFill="#2fff00" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <Button blendMode="SCREEN" mnemonicParsing="false" onAction="#clickButton" style="-fx-background-color: #8d43ab;" text="Button" textFill="#00ff0d" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-            <Button blendMode="SCREEN" mnemonicParsing="false" onAction="#clickButton" style="-fx-background-color: #8d43ab;" text="Button" textFill="#2fff00" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-            <Button blendMode="SCREEN" mnemonicParsing="false" onAction="#clickButton" style="-fx-background-color: #8d43ab;" text="Button" textFill="#11ff00" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-            <Button blendMode="SCREEN" mnemonicParsing="false" onAction="#clickButton" style="-fx-background-color: #8d43ab;" text="Button" textFill="#40ff00" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+            <Button blendMode="SCREEN" mnemonicParsing="false" onAction="#changeButton" style="-fx-background-color: #8d43ab;" text="Change" textFill="#1eff00" GridPane.columnIndex="2" />
+            <Button blendMode="SCREEN" mnemonicParsing="false" onAction="#changeButton" style="-fx-background-color: #8d43ab;" text="Change" textFill="#2fff00" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Button blendMode="SCREEN" layoutX="52.0" mnemonicParsing="false" onAction="#changeButton" style="-fx-background-color: #8d43ab;" text="Change" textFill="#2fff00" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Button blendMode="SCREEN" mnemonicParsing="false" onAction="#changeButton" style="-fx-background-color: #8d43ab;" text="Change" textFill="#00ff0d" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <Button blendMode="SCREEN" mnemonicParsing="false" onAction="#changeButton" style="-fx-background-color: #8d43ab;" text="Change" textFill="#2fff00" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+            <Button blendMode="SCREEN" mnemonicParsing="false" onAction="#changeButton" style="-fx-background-color: #8d43ab;" text="Change" textFill="#11ff00" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+            <Button blendMode="SCREEN" mnemonicParsing="false" onAction="#changeButton" style="-fx-background-color: #8d43ab;" text="Change" textFill="#40ff00" GridPane.columnIndex="2" GridPane.rowIndex="6" />
             <Label text="Up" GridPane.rowIndex="4">
                <font>
                   <Font size="30.0" />
@@ -213,5 +213,10 @@
                </textFill></Label>
          </children>
       </GridPane>
+      <Button blendMode="SCREEN" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#menuButton" style="-fx-background-color: #8d43ab;" text="Menu" textFill="#1eff00" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
