@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -53,6 +54,7 @@ public class Main extends Application {
 		if (menuScene == null) {
 			menuScene = new Scene(root, 960, 720);
 		} else {
+			menuScene.setCursor(Cursor.DEFAULT);
 			menuScene.setRoot(root);
 		}
 		stage.setScene(menuScene);
