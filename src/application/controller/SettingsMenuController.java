@@ -20,6 +20,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
@@ -85,7 +86,7 @@ public class SettingsMenuController /*implements EventHandler<KeyEvent> */{
 		}
 	}
 
-	public void changeButton(ActionEvent event) {
+	public void changeButton(MouseEvent event) {
 		if (changingButton != null) {
 			changingButton.setText("Change");
 		}

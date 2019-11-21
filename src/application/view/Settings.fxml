@@ -108,13 +108,13 @@
                      </stops>
                   </LinearGradient>
                </textFill></Label>
-            <Button blendMode="SCREEN" mnemonicParsing="false" onAction="#changeButton" style="-fx-background-color: #8d43ab;" text="Change" textFill="#1eff00" GridPane.columnIndex="2" />
-            <Button blendMode="SCREEN" mnemonicParsing="false" onAction="#changeButton" style="-fx-background-color: #8d43ab;" text="Change" textFill="#2fff00" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Button blendMode="SCREEN" layoutX="52.0" mnemonicParsing="false" onAction="#changeButton" style="-fx-background-color: #8d43ab;" text="Change" textFill="#2fff00" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <Button blendMode="SCREEN" mnemonicParsing="false" onAction="#changeButton" style="-fx-background-color: #8d43ab;" text="Change" textFill="#00ff0d" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-            <Button blendMode="SCREEN" mnemonicParsing="false" onAction="#changeButton" style="-fx-background-color: #8d43ab;" text="Change" textFill="#2fff00" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-            <Button blendMode="SCREEN" mnemonicParsing="false" onAction="#changeButton" style="-fx-background-color: #8d43ab;" text="Change" textFill="#11ff00" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-            <Button blendMode="SCREEN" mnemonicParsing="false" onAction="#changeButton" style="-fx-background-color: #8d43ab;" text="Change" textFill="#40ff00" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+            <Button blendMode="SCREEN" mnemonicParsing="false" onMouseClicked="#changeButton" style="-fx-background-color: #8d43ab;" text="Change" textFill="#1eff00" GridPane.columnIndex="2" />
+            <Button blendMode="SCREEN" mnemonicParsing="false" onMouseClicked="#changeButton" style="-fx-background-color: #8d43ab;" text="Change" textFill="#2fff00" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Button blendMode="SCREEN" layoutX="52.0" mnemonicParsing="false" onMouseClicked="#changeButton" style="-fx-background-color: #8d43ab;" text="Change" textFill="#2fff00" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Button blendMode="SCREEN" mnemonicParsing="false" onMouseClicked="#changeButton" style="-fx-background-color: #8d43ab;" text="Change" textFill="#00ff0d" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <Button blendMode="SCREEN" mnemonicParsing="false" onMouseClicked="#changeButton" style="-fx-background-color: #8d43ab;" text="Change" textFill="#2fff00" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+            <Button blendMode="SCREEN" mnemonicParsing="false" onMouseClicked="#changeButton" style="-fx-background-color: #8d43ab;" text="Change" textFill="#11ff00" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+            <Button blendMode="SCREEN" mnemonicParsing="false" onMouseClicked="#changeButton" style="-fx-background-color: #8d43ab;" text="Change" textFill="#40ff00" GridPane.columnIndex="2" GridPane.rowIndex="6" />
             <Label text="Up" GridPane.rowIndex="4">
                <font>
                   <Font size="30.0" />
