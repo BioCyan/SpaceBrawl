@@ -25,7 +25,7 @@ import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
-public class SettingsMenuController implements EventHandler<KeyEvent> {
+public class SettingsMenuController /*implements EventHandler<KeyEvent> */{
 	@FXML private GridPane grid;
     private HashMap<Button, ActionType> buttons;
     private HashMap<ActionType, Label> labels;
@@ -64,7 +64,7 @@ public class SettingsMenuController implements EventHandler<KeyEvent> {
 			}
 		}
 	}
-
+/*
 	public void handle(KeyEvent event) {
 		if (changingButton != null) {
 			ActionType action = buttons.get(changingButton);
@@ -76,7 +76,7 @@ public class SettingsMenuController implements EventHandler<KeyEvent> {
 			grid.getScene().setOnKeyPressed(null);
 		}
 	}
-
+*/
 	public void menuButton(ActionEvent event) {
 		if (Main.game == null) {
 			Main.switchScene(Main.SceneType.Main);
@@ -92,6 +92,20 @@ public class SettingsMenuController implements EventHandler<KeyEvent> {
 		Button button = (Button)event.getSource();
 		button.setText("...");
 		changingButton = button;
-		grid.getScene().setOnKeyPressed(this);
+		ActionType action = buttons.get(changingButton);
+		labels.get(action).setText("Press any Key");
+		//grid.getScene().setOnKeyPressed(this);
+		changingButton.setOnKeyPressed(new EventHandler<KeyEvent>() {
+			@Override
+			public void handle(KeyEvent event) {
+				ActionType action = buttons.get(changingButton);
+				KeyCode key = event.getCode();
+				settings.setActionKey(action, key);
+				labels.get(action).setText(key.getName());
+				changingButton.setText("Change");
+				changingButton.setOnKeyPressed(null);
+				changingButton = null;
+			}
+		});
 	}
 }
