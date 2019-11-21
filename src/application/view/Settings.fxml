@@ -213,7 +213,7 @@
                </textFill></Label>
          </children>
       </GridPane>
-      <Button blendMode="SCREEN" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#menuButton" style="-fx-background-color: #8d43ab;" text="Menu" textFill="#1eff00" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+      <Button blendMode="SCREEN" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#menuButton" style="-fx-background-color: #8d43ab;" text="Back" textFill="#1eff00" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
          <font>
             <Font size="20.0" />
          </font>

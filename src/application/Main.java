@@ -33,12 +33,11 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws IOException {
+		settings = new GameSettings();
 		stage = primaryStage;
 		preloadScenes();
 		switchScene(SceneType.Main);
 		stage.show();
-
-		settings = new GameSettings();
 	}
 
 	public static void switchScene(SceneType sceneType) {

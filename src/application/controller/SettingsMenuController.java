@@ -9,6 +9,7 @@ package application.controller;
 
 import application.Main;
 import application.model.GameSettings;
+import application.model.GameSettings.ActionType;
 import java.util.HashMap;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,42 +18,62 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 
-import java.io.IOException;
-
-public class SettingsMenuController {
+public class SettingsMenuController implements EventHandler<KeyEvent> {
 	@FXML private GridPane grid;
-	private HashMap<Button, Label> buttonsToLabels;
+    private HashMap<Button, ActionType> buttons;
+    private HashMap<ActionType, Label> labels;
 	private GameSettings settings;
+	private Button changingButton;
 
 	@FXML public void initialize() {
 		settings = Main.settings;
 
-		HashMap<Integer, Button> buttons = new HashMap<>();
-		HashMap<Integer, Label> labels = new HashMap<>();
+		buttons = new HashMap<>();
+		labels = new HashMap<>();
+        HashMap<Integer, ActionType> actions = new HashMap<>();
+        actions.put(0, ActionType.Left);
+        actions.put(1, ActionType.Right);
+        actions.put(2, ActionType.Forward);
+        actions.put(3, ActionType.Back);
+        actions.put(4, ActionType.Up);
+        actions.put(5, ActionType.Down);
+        actions.put(6, ActionType.Pause);
+
 		for (Node node : grid.getChildren()) {
 			Integer column = GridPane.getColumnIndex(node);
 			if (column == null) {
 				continue;
-			} else if (column == 1) {
-				labels.put(grid.getRowIndex(node), (Label)node);
+			}
+
+			Integer row = grid.getRowIndex(node);
+			if (row == null) {
+				row = 0;
+			}
+
+			if (column == 1) {
+				labels.put(actions.get(row), (Label)node);
 			} else if (column == 2) {
-				buttons.put(grid.getRowIndex(node), (Button)node);
+				buttons.put((Button)node, actions.get(row));
 			}
 		}
+	}
 
-		buttonsToLabels = new HashMap<>();
-		for (Integer row : buttons.keySet()) {
-			int i;
-			if (row == null) {
-				i = 0;
-			} else {
-				i = row;
-			}
-			buttonsToLabels.put(buttons.get(i), labels.get(i));
+	public void handle(KeyEvent event) {
+		if (changingButton != null) {
+			ActionType action = buttons.get(changingButton);
+			KeyCode key = event.getCode();
+			settings.setActionKey(action, key);
+			labels.get(action).setText(key.getName());
+			changingButton.setText("Change");
+			changingButton = null;
+			grid.getScene().setOnKeyPressed(null);
 		}
 	}
 
@@ -65,5 +86,12 @@ public class SettingsMenuController {
 	}
 
 	public void changeButton(ActionEvent event) {
+		if (changingButton != null) {
+			changingButton.setText("Change");
+		}
+		Button button = (Button)event.getSource();
+		button.setText("...");
+		changingButton = button;
+		grid.getScene().setOnKeyPressed(this);
 	}
 }

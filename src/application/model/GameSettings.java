@@ -1,5 +1,6 @@
 package application.model;
 
+import java.util.HashMap;
 import javafx.scene.input.KeyCode;
 
 /**
@@ -10,7 +11,19 @@ import javafx.scene.input.KeyCode;
  *
  */
 public class GameSettings {
+	public enum ActionType {
+		Forward,
+		Back,
+		Left,
+		Right,
+		Up,
+		Down,
+		Pause,
+	};
+
+	private HashMap<ActionType, KeyCode> keyCodes;
 	private double sensitivity;
+	/*
 	private KeyCode forward;
 	private KeyCode backward;
 	private KeyCode left;
@@ -18,13 +31,19 @@ public class GameSettings {
 	private KeyCode up;
 	private KeyCode down;
 	private KeyCode pause;
+	*/
 
+	public void setActionKey(ActionType action, KeyCode key) {
+		keyCodes.put(action, key);
+	}
+
+	/*
 	/**
 	 * setter function for forward element
 	 * @param set KeyCode that should be assigned
 	 */
 	public void setForward(KeyCode set) {
-		forward = set;
+		keyCodes.put(ActionType.Forward, set);
 	}
 
 	/**
@@ -32,7 +51,7 @@ public class GameSettings {
 	 * @param set KeyCode that should be assigned
 	 */
 	public void setBack(KeyCode set) {
-		backward = set;
+		keyCodes.put(ActionType.Back, set);
 	}
 
 	/**
@@ -40,7 +59,7 @@ public class GameSettings {
 	 * @param set KeyCode that should be assigned
 	 */
 	public void setRight(KeyCode set) {
-		right = set;
+		keyCodes.put(ActionType.Right, set);
 	}
 
 	/**
@@ -48,7 +67,7 @@ public class GameSettings {
 	 * @param set KeyCode that should be assigned
 	 */
 	public void setLeft(KeyCode set) {
-		left = set;
+		keyCodes.put(ActionType.Left, set);
 	}
 
 	/**
@@ -56,7 +75,7 @@ public class GameSettings {
 	 * @param set KeyCode that should be assigned
 	 */
 	public void setUp(KeyCode set) {
-		up = set;
+		keyCodes.put(ActionType.Up, set);
 	}
 
 	/**
@@ -64,7 +83,7 @@ public class GameSettings {
 	 * @param set KeyCode that should be assigned
 	 */
 	public void setDown(KeyCode set) {
-		down = set;
+		keyCodes.put(ActionType.Down, set);
 	}
 
 	/**
@@ -72,7 +91,7 @@ public class GameSettings {
 	 * @param set KeyCode that should be assigned
 	 */
 	public void setPause(KeyCode set) {
-		pause = set;
+		keyCodes.put(ActionType.Pause, set);
 	}
 
 	/**
@@ -88,7 +107,7 @@ public class GameSettings {
 	 * @return
 	 */
 	public KeyCode getForward() {
-		return forward;
+		return keyCodes.get(ActionType.Forward);
 	}
 
 	/**
@@ -96,7 +115,7 @@ public class GameSettings {
 	 * @return
 	 */
 	public KeyCode getBack() {
-		return backward;
+		return keyCodes.get(ActionType.Back);
 	}
 
 	/**
@@ -104,7 +123,7 @@ public class GameSettings {
 	 * @return
 	 */
 	public KeyCode getLeft() {
-		return left;
+		return keyCodes.get(ActionType.Left);
 	}
 
 	/**
@@ -112,7 +131,7 @@ public class GameSettings {
 	 * @return
 	 */
 	public KeyCode getRight() {
-		return right;
+		return keyCodes.get(ActionType.Right);
 	}
 
 	/**
@@ -120,7 +139,7 @@ public class GameSettings {
 	 * @return
 	 */
 	public KeyCode getUp() {
-		return up;
+		return keyCodes.get(ActionType.Up);
 	}
 
 	/**
@@ -128,7 +147,7 @@ public class GameSettings {
 	 * @return
 	 */
 	public KeyCode getDown() {
-		return down;
+		return keyCodes.get(ActionType.Down);
 	}
 
 	/**
@@ -136,7 +155,7 @@ public class GameSettings {
 	 * @return
 	 */
 	public KeyCode getPause() {
-		return pause;
+		return keyCodes.get(ActionType.Pause);
 	}
 
 	/**
@@ -154,6 +173,8 @@ public class GameSettings {
 	 * sensitivity to 1.
 	 */
 	public GameSettings() {
+		keyCodes = new HashMap<>();
+
 		setSensitivity(1);
 		setForward(KeyCode.W);
 		setBack(KeyCode.S);
