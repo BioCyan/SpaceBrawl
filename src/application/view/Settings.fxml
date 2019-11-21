@@ -16,7 +16,7 @@
    <children>
       <ImageView fitHeight="720.0" fitWidth="960.0">
          <image>
-            <Image url="@../../../resources/104385.jpg" />
+            <Image url="@../../104385.jpg" />
          </image>
       </ImageView>
       <GridPane fx:id="grid" gridLinesVisible="true" layoutX="-1.0" layoutY="6.0" prefHeight="662.0" prefWidth="960.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
