@@ -79,23 +79,31 @@ public class SettingsMenuController /*implements EventHandler<KeyEvent> */{
 	}
 */
 	public void menuButton(ActionEvent event) {
-		if (Main.game == null) {
-			Main.switchScene(Main.SceneType.Main);
-		} else {
-			Main.switchScene(Main.SceneType.Pause);
+		if(changingButton == null) {
+			if (Main.game == null) {
+				Main.switchScene(Main.SceneType.Main);
+			} else {
+				Main.switchScene(Main.SceneType.Pause);
+			}
+		}else {
+			changingButton.setText("Change");
+			changingButton.setOnKeyPressed(null);
+			ActionType action = buttons.get(changingButton);
+			labels.get(action).setText(settings.getActionKey(action).getName());
+			changingButton = null;
 		}
 	}
 
 	public void changeButton(MouseEvent event) {
 		if (changingButton != null) {
 			changingButton.setText("Change");
+			labels.get(buttons.get(changingButton)).setText(settings.getActionKey(buttons.get(changingButton)).getName());
 		}
 		Button button = (Button)event.getSource();
 		button.setText("...");
 		changingButton = button;
 		ActionType action = buttons.get(changingButton);
 		labels.get(action).setText("Press any Key");
-		//grid.getScene().setOnKeyPressed(this);
 		changingButton.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
 			public void handle(KeyEvent event) {

@@ -36,7 +36,15 @@ public class GameSettings {
 	public void setActionKey(ActionType action, KeyCode key) {
 		keyCodes.put(action, key);
 	}
-
+	/**
+	 * getter for current keyCode to be used by settings controller
+	 * @param action
+	 * @return
+	 */
+	public KeyCode getActionKey(ActionType action) {
+		return keyCodes.get(action);
+	}
+	
 	/*
 	/**
 	 * setter function for forward element
