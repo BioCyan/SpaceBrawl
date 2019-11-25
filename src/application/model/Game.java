@@ -16,9 +16,10 @@ public class Game extends SubScene {
 	private double pitch;
 
 	public int score;
-	public boolean paused = false;
+	public boolean paused;
+	public boolean gameOver;
 	public Player player;
-	public Sphere star;
+	public Star star;
 	public ArrayList<Rock> rocks;
 	public ArrayList<PlasmaBolt> shots;
 
@@ -31,7 +32,7 @@ public class Game extends SubScene {
 
 		PointLight light = new PointLight();
 		AmbientLight aLight = new AmbientLight(Color.rgb(24, 24, 24));
-		star = new Sphere(1);
+		star = new Star();
 
 		Group group = new Group(player, star, light, aLight);
 		setRoot(group);
@@ -59,6 +60,11 @@ public class Game extends SubScene {
 
 		Group group = (Group)getRoot();
 		player.update(deltaTime);
+
+		if (star.checkCollision(player)) {
+			gameOver = true;
+			return;
+		}
 
 		for (PlasmaBolt shot : shots) {
 			shot.update(deltaTime);

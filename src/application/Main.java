@@ -1,7 +1,6 @@
 package application;
 
 import application.controller.GameController;
-import application.controller.MenuController;
 import application.controller.MainMenuController;
 import application.model.Game;
 import application.model.GameSettings;
@@ -21,6 +20,7 @@ public class Main extends Application {
 		Main,
 		Settings,
 		Pause,
+		GameOver,
 		Game,
 	};
 
@@ -69,6 +69,7 @@ public class Main extends Application {
 		roots.put(SceneType.Main, loadScene("Main"));
 		roots.put(SceneType.Settings, loadScene("Settings"));
 		roots.put(SceneType.Pause, loadScene("Pause"));
+		roots.put(SceneType.GameOver, loadScene("GameOver"));
 	}
 
 	private static Parent loadScene(String name) throws IOException{

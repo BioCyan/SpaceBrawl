@@ -69,10 +69,15 @@ public class GameController {
 					return;
 				}
 
-				if (!game.paused) {
+				if (!game.paused && !game.gameOver) {
 					update((now - lastUpdate) / 1000000000.0);
 				} else if (!paused) {
-					Main.switchScene(Main.SceneType.Pause);
+					if (game.gameOver) {
+						Main.game = null;
+						Main.switchScene(Main.SceneType.GameOver);
+					} else {
+						Main.switchScene(Main.SceneType.Pause);
+					}
 					paused = true;
 					timer.stop();
 				}
