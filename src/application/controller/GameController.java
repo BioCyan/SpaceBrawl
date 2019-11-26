@@ -33,7 +33,9 @@ public class GameController {
 	private AnimationTimer timer;
 	private Scene mainScene;
 
-	//The gamecontroller is a default constructor to load up the game controller
+	/**
+	 * The gamecontroller is a default constructor to load up the game controller
+	 */
 	public GameController() {
 		game = Main.game;
 
@@ -47,7 +49,9 @@ public class GameController {
 		game.heightProperty().bind(mainScene.heightProperty());
 	}
 
-	//The start method is the action handle for when button Start is clicked in main menu to go to game scene
+	/**
+	 * The start method is the action handle for when button Start is clicked in main menu to go to game scene
+	 */
 	public void start(Stage stage) {
 		//TODO starry background, rock textures, textured star, and laser shape
 
@@ -89,7 +93,11 @@ public class GameController {
 		game.connect(mainScene, stage);
 	}
 
-	//The update method is a score count that is used to keep track of all rocks hit in the game
+	/**
+	 * The update method is a score count that is used to keep track of all rocks hit in the game
+	 *
+	 * @param deltaTime
+	 */
 	private void update(double deltaTime) {
 		game.update(deltaTime);
 

@@ -65,19 +65,11 @@ public class SettingsMenuController /*implements EventHandler<KeyEvent> */{
 			}
 		}
 	}
-/*
-	public void handle(KeyEvent event) {
-		if (changingButton != null) {
-			ActionType action = buttons.get(changingButton);
-			KeyCode key = event.getCode();
-			settings.setActionKey(action, key);
-			labels.get(action).setText(key.getName());
-			changingButton.setText("Change");
-			changingButton = null;
-			grid.getScene().setOnKeyPressed(null);
-		}
-	}
-*/
+
+	/**
+	 * The menuButton Event Handler handles the buttons
+	 * @param event
+	 */
 	public void menuButton(ActionEvent event) {
 		if(changingButton == null) {
 			if (Main.game == null) {
@@ -94,6 +86,13 @@ public class SettingsMenuController /*implements EventHandler<KeyEvent> */{
 		}
 	}
 
+	/**
+	 * The changeButton MouseEvent changes the previous controller label
+	 * to the current value entered.
+	 * The changeButton MouseEvent changes the controllers previous
+	 * control to current value entered for game controller
+	 * @param event
+	 */
 	public void changeButton(MouseEvent event) {
 		if (changingButton != null) {
 			changingButton.setText("Change");

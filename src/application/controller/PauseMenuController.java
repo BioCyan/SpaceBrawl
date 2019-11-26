@@ -13,26 +13,42 @@ import java.io.IOException;
  */
 public class PauseMenuController {
 
-	//The resume method is the action handle for when the Resume buttton is clicked to go to the main menu
+	/**The resume method is the action handle for when the Resume button is clicked to go to the main menu
+	 *
+	 * @param e
+	 * @throws IOException
+	 */
 	@FXML
 	public void resume(ActionEvent e) throws IOException {
 		Main.switchScene(Main.SceneType.Game);
 	}
 
-	//The setting method is the action handle for when the Settings button is clicked to go to the change setting scene
+	/**The setting method is the action handle for when the Settings button is clicked to go to the change setting scene
+	 *
+	 * @param e
+	 * @throws IOException
+	 */
 	@FXML
 	public void settings(ActionEvent e) throws IOException {
 		Main.switchScene(Main.SceneType.Settings);
 	}
 
-	//The menu method is the action handle for when the Menu button is clicked to go to the main menu scene
+	/**The menu method is the action handle for when the Menu button is clicked to go to the main menu scene
+	 *
+	 * @param e
+	 * @throws IOException
+	 */
 	@FXML
 	public void menu(ActionEvent e) throws IOException {
 		Main.game = null;
 		Main.switchScene(Main.SceneType.Main);
 	}
 
-	//The quit method is the action handle for when the Quit button is clicked to quit the game
+	/**
+	 * The quit method is the action handle for when the Quit button is clicked to quit the game
+	 *
+	 * @param e
+	 */
 	@FXML
 	public void quit(ActionEvent e) {
 		Main.exit();

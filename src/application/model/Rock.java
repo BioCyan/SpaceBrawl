@@ -12,7 +12,9 @@ public class Rock extends MeshView {
 	private boolean exploded;
 	private double explosionTime;
 
-	//The Rock default constructor loads the rocks in the game scene
+	/**
+	 * The Rock default constructor loads the rocks in the game scene
+	 */
 	public Rock() {
 		super();
 
@@ -26,18 +28,27 @@ public class Rock extends MeshView {
 		setMaterial(new PhongMaterial(Color.rgb(128, 128, 128)));
 	}
 
-	//The getRadius method is used to get the radius of the rocks
+	/**
+	 * The getRadius method is used to get the radius of the rocks
+	 * @return
+	 */
 	public double getRadius() {
 		return radius;
 	}
 
-	//The explode method is used for when a rocket hits a rock, the rock will have exploding effects
+	/**
+	 * The explode method is used for when a rocket hits a rock, the rock will have exploding effects
+	 */
 	public void explode() {
 		exploded = true;
 		setMaterial(new PhongMaterial(Color.rgb(255, 96, 0)));
 	}
 
-	//The update method loads the effect for when the rock is hit
+	/**
+	 * The update method loads the effect for when the rock is hit
+	 *
+	 * @param deltaTime
+	 */
 	public void update(double deltaTime) {
 		if (exploded) {
 			explosionTime += deltaTime;
@@ -49,12 +60,22 @@ public class Rock extends MeshView {
 		}
 	}
 
-	//The isDestroyed method is used for how long the rock stays visible when hit by a rocket
+	/**
+	 * The isDestroyed method is used for how long the rock stays visible when hit by a rocket
+	 *
+	 * @return
+	 */
 	public boolean isDestroyed() {
 		return explosionTime > 0.5;
 	}
 
-	//The buildMesh method is used to build the shape of every rock
+	/**
+	 * The TriangleMesh method is used to build the shape of every rock
+	 *
+	 * @param radius
+	 * @param random
+	 * @return
+	 */
 	private TriangleMesh buildMesh(float radius, Random random) {
 		TriangleMesh mesh = new TriangleMesh();
 		mesh.getTexCoords().addAll(0, 0);
@@ -99,7 +120,13 @@ public class Rock extends MeshView {
 		return mesh;
 	}
 
-	//The genDistance is used to generate the vertex of each rock
+	/**
+	 * The genDistance is used to generate the vertex of each rock
+	 *
+	 * @param radius
+	 * @param random
+	 * @return
+	 */
 	private float genDistance(float radius, Random random) {
 		return radius - random.nextFloat() * radius * 0.2f;
 	}

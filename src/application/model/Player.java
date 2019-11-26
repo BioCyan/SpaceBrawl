@@ -32,11 +32,17 @@ public class Player extends PerspectiveCamera {
 	private double oldMouseY;
 	private double yaw;
 	private double pitch;
-	//private GameSettings settings;
+	/**
+	 * private GameSettings settings;
+	 */
 	private Point3D moveDir = Point3D.ZERO;
 	private Point3D velocity = new Point3D(-1.2, 0, 0);
 
-	//The Player default constructor is used to load the players view
+	/**
+	 * The Player default constructor is used to load the players view
+	 *
+	 * @param game
+	 */
 	public Player(Game game) {
 		super(true);
 		setFieldOfView(70);
@@ -46,6 +52,13 @@ public class Player extends PerspectiveCamera {
 		//settings = new GameSettings();
 	}
 
+	/**
+	 * The connect event handler handles the user inputs
+	 * while playing the game
+	 *
+	 * @param scene
+	 * @param stage
+	 */
 	public void connect(Scene scene, Stage stage) {
 		this.scene = scene;
 		this.stage = stage;
@@ -76,7 +89,11 @@ public class Player extends PerspectiveCamera {
 			private boolean spaceDown;
 			private boolean ctrlDown;
 
-			//The handle method is the action handle for all the player controls in the game
+			/**
+			 * The handle method is the action handle for all the player controls in the game
+			 *
+			 * @param event
+			 */
 			@Override
 			public void handle(KeyEvent event) {
 				GameSettings settings = Main.settings;
@@ -134,7 +151,11 @@ public class Player extends PerspectiveCamera {
 		scene.setOnKeyReleased(keyHandler);
 	}
 
-	//The update method is to update the players view while in the game
+	/**
+	 * The update method is to update the players view while in the game
+	 *
+	 * @param deltaTime
+	 */
 	public void update(double deltaTime) {
 		GameSettings settings = Main.settings;
 
@@ -162,9 +183,11 @@ public class Player extends PerspectiveCamera {
 		setTranslateY(0);
 		setTranslateZ(0);
 
-		// Unfortunately JavaFX didn't get Robot until Java 11
-		// and we'll be running on machines with only Java 8
-		// so we're using the AWT API for this which is not safe
+		/** Unfortunately JavaFX didn't get Robot until Java 11
+		 * 	and we'll be running on machines with only Java 8
+		 * 	so we're using the AWT API for this which is not safe
+		 */
+
 		try {
 			double middleX = scene.getWidth() / 2 + stage.getX();
 			double middleY = scene.getHeight() / 2 + stage.getY();
