@@ -52,6 +52,12 @@ public class Main extends Application {
 		}
 
 		Parent root = roots.get(sceneType);
+		if (root == null) {
+			try {
+				root = loadScene("GameOver");
+			} catch (IOException e) {
+			}
+		}
 		if (menuScene == null) {
 			menuScene = new Scene(root, 960, 720);
 		} else {
@@ -71,7 +77,7 @@ public class Main extends Application {
 		roots.put(SceneType.Main, loadScene("Main"));
 		roots.put(SceneType.Settings, loadScene("Settings"));
 		roots.put(SceneType.Pause, loadScene("Pause"));
-		roots.put(SceneType.GameOver, loadScene("GameOver"));
+		//roots.put(SceneType.GameOver, loadScene("GameOver"));
 	}
 
 	private static Parent loadScene(String name) throws IOException{
