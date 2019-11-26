@@ -76,7 +76,6 @@ public class GameController {
 					update((now - lastUpdate) / 1000000000.0);
 				} else if (!paused) {
 					if (game.gameOver) {
-						Main.game = null;
 						Main.switchScene(Main.SceneType.GameOver);
 					} else {
 						Main.switchScene(Main.SceneType.Pause);

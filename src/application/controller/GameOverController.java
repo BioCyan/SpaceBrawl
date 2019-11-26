@@ -10,8 +10,14 @@ public class GameOverController {
 	@FXML private Label shotsLabel;
 	@FXML private Label scoreLabel;
 
+	@FXML public void initialize() {
+		shotsLabel.setText("Shots: " + Main.game.shots.size());
+		scoreLabel.setText("Score: " + Main.game.score);
+	}
+
 	@FXML
 	public void menu(ActionEvent e) {
+		Main.game = null;
 		Main.switchScene(Main.SceneType.Main);
 	}
 }
