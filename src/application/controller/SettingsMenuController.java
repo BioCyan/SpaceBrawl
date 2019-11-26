@@ -32,7 +32,11 @@ public class SettingsMenuController {
 
 	@FXML
 	private Slider senSlider;
-	
+
+	/**
+	 * The initialize method changes value label in the
+	 * SettingsMenuController that has been changed
+	 */
 	@FXML 
 	public void initialize() {
 		settings = Main.settings;
@@ -69,6 +73,12 @@ public class SettingsMenuController {
 		}
 	}
 
+	/**
+	 * The menuButton Event Handle handles the event when
+	 * the user clicks the Back button which goes to the
+	 * Main Menu screen or Pause Menu screen
+	 * @param event
+	 */
 	public void menuButton(ActionEvent event) {
 		if(changingButton == null) {
 			if (Main.game == null) {
@@ -85,6 +95,13 @@ public class SettingsMenuController {
 		}
 	}
 
+	/**
+	 * The changeButton Event Handle handles the event when the
+	 * user clicks the Change button which allows them to make
+	 * changes to the game controller. This also changes the
+	 * GameControllers controls
+	 * @param event
+	 */
 	public void changeButton(MouseEvent event) {
 		if (changingButton != null) {
 			changingButton.setText("Change");
@@ -108,7 +125,13 @@ public class SettingsMenuController {
 			}
 		});
 	}
-	
+
+	/**
+	 * The slide Event Handle handles when the user
+	 * changes the sensitivity of the mouse in the
+	 * SettingMenuController scene
+	 * @param event
+	 */
 	@FXML
 	public void slide(MouseEvent event) {
 		settings.setSensitivity(senSlider.getValue());

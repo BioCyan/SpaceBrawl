@@ -33,6 +33,11 @@ public class Main extends Application {
 	private static Stage stage;
 	private static Scene menuScene;
 
+	/**
+	 * The start method loads up Main scene
+	 * @param primaryStage
+	 * @throws IOException
+	 */
 	@Override
 	public void start(Stage primaryStage) throws IOException {
 		settings = new GameSettings();
@@ -42,6 +47,11 @@ public class Main extends Application {
 		stage.show();
 	}
 
+	/**
+	 * The switchScene method is used to switch between the different
+	 * scene in the game
+	 * @param sceneType
+	 */
 	public static void switchScene(SceneType sceneType) {
 		if (sceneType == SceneType.Game) {
 			gameController = new GameController();
@@ -68,10 +78,19 @@ public class Main extends Application {
 		stage.setScene(menuScene);
 	}
 
+	/**
+	 * The exit Event Handle handles the event for
+	 * when the user clicks the Exit button to exit
+	 * the game
+	 */
 	public static void exit() {
 		stage.close();
 	}
 
+	/**
+	 * The preloadScenes loads all the menu scenes in the game
+	 * @throws IOException
+	 */
 	private static void preloadScenes() throws IOException {
 		roots = new HashMap<>();
 		roots.put(SceneType.Main, loadScene("Main"));
@@ -80,10 +99,20 @@ public class Main extends Application {
 		//roots.put(SceneType.GameOver, loadScene("GameOver"));
 	}
 
+	/**
+	 * The loadScene method loads tbe fxml file for the game
+	 * @param name
+	 * @return
+	 * @throws IOException
+	 */
 	private static Parent loadScene(String name) throws IOException{
 		return FXMLLoader.load(Main.class.getResource("view/" + name + ".fxml"));
 	}
 
+	/**
+	 * The main method loads all the args in program
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		launch(args);
 	}

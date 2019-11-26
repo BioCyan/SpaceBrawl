@@ -34,7 +34,7 @@ public class GameController {
 	private Scene mainScene;
 
 	/**
-	 * The gamecontroller is a default constructor to load up the game controller
+	 * The GameController is a default constructor to load up the game controller
 	 */
 	public GameController() {
 		game = Main.game;
@@ -50,7 +50,7 @@ public class GameController {
 	}
 
 	/**
-	 * The start method is the action handle for when button Start is clicked in main menu to go to game scene
+	 * The start method is the Event Handle for when button Start is clicked in main menu to go to game scene
 	 */
 	public void start(Stage stage) {
 		//TODO starry background, rock textures, textured star, and laser shape

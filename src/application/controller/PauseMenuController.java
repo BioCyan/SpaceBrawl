@@ -6,14 +6,15 @@ import javafx.fxml.FXML;
 import java.io.IOException;
 
 /**
- * a controller for the pause menu
+ * A controller for the pause menu
  *
  * should be called by a KeyEvent handler in the GameController object. Will display a menu based on
  * an .fxml and will give the option to quit the game or to open the settings menu.
  */
 public class PauseMenuController {
 
-	/**The resume method is the action handle for when the Resume button is clicked to go to the main menu
+	/**
+	 * The resume method is the action handle for when the Resume button is clicked to go to the main menu
 	 *
 	 * @param e
 	 * @throws IOException
@@ -23,7 +24,8 @@ public class PauseMenuController {
 		Main.switchScene(Main.SceneType.Game);
 	}
 
-	/**The setting method is the action handle for when the Settings button is clicked to go to the change setting scene
+	/**
+	 * The setting method is the action handle for when the Settings button is clicked to go to the change setting scene
 	 *
 	 * @param e
 	 * @throws IOException
@@ -33,7 +35,8 @@ public class PauseMenuController {
 		Main.switchScene(Main.SceneType.Settings);
 	}
 
-	/**The menu method is the action handle for when the Menu button is clicked to go to the main menu scene
+	/**
+	 * The menu method is the action handle for when the Menu button is clicked to go to the main menu scene
 	 *
 	 * @param e
 	 * @throws IOException
@@ -45,7 +48,7 @@ public class PauseMenuController {
 	}
 
 	/**
-	 * The quit method is the action handle for when the Quit button is clicked to quit the game
+	 * The quit method is the action handle for when the Quit Game button is clicked to quit the game
 	 *
 	 * @param e
 	 */

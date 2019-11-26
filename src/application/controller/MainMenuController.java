@@ -19,7 +19,7 @@ public class MainMenuController {
 	@FXML private Button exitButton;
 
 	/**
-	 * The start method is the action handle for Start button in main menu to began the game
+	 * The start method is the Event Handle for Start button in main menu to began the game
 	 * @param e
 	 * @throws IOException
 	 */
@@ -30,7 +30,7 @@ public class MainMenuController {
 	}
 
 	/**
-	 * The settings method is the action handle for the Settings button in main menu to got to the settings page
+	 * The settings method is the Event Handle for the Settings button in main menu to got to the settings page
 	 * @param e
 	 * @throws IOException
 	 */
@@ -39,7 +39,11 @@ public class MainMenuController {
 		Main.switchScene(Main.SceneType.Settings);
 	}
 
-	//The exit method is the action handle for the Exit button in the main menu to exit the game
+	/**
+	 * The exit method is the Event Handle for the Exit button in the main menu to exit the game
+	 *
+	 * @param e
+	 */
 	@FXML
 	void exit(ActionEvent e) {
 		Main.exit();
