@@ -12,6 +12,16 @@
             <Font size="32.0" />
          </font>
       </Label>
+      <Label fx:id="shotsLabel" alignment="CENTER" layoutX="345.0" layoutY="360.0" prefWidth="270.0" text="Shots: " textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="scoreLabel" alignment="CENTER" layoutX="345.0" layoutY="390.0" prefWidth="270.0" text="Score: " textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
       <Button layoutX="385.0" layoutY="450.0" mnemonicParsing="false" onAction="#menu" prefHeight="50.0" prefWidth="190.0" text="RETURN TO MENU">
          <font>
             <Font size="18.0" />
