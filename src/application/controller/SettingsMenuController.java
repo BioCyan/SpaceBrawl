@@ -111,7 +111,6 @@ public class SettingsMenuController {
 	
 	@FXML
 	public void slide(MouseEvent event) {
-		
-		System.out.println("Slider at:"+ senSlider.getValue());
+		settings.setSensitivity(senSlider.getValue());
 	}
 }
