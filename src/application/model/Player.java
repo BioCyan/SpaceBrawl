@@ -136,10 +136,10 @@ public class Player extends PerspectiveCamera {
 
 	//The update method is to update the players view while in the game
 	public void update(double deltaTime) {
-		GameSettings settings = Main.settings;
+		double sensitivity = 0.1 * Main.settings.getSensitivity();
 
-		double yaw = 0.1 * (mouseX - oldMouseX);
-		double pitch = 0.1 * (mouseY - oldMouseY);
+		double yaw = sensitivity * (mouseX - oldMouseX);
+		double pitch = sensitivity * (mouseY - oldMouseY);
 		Rotate yawRotate = new Rotate(yaw, Rotate.Y_AXIS);
 		Rotate pitchRotate = new Rotate(-pitch, Rotate.X_AXIS);
 
