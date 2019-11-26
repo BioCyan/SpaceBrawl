@@ -7,6 +7,7 @@ import application.model.GameSettings;
 import java.util.HashMap;
 import java.io.IOException;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
 import javafx.scene.Parent;
@@ -54,9 +55,10 @@ public class Main extends Application {
 		if (menuScene == null) {
 			menuScene = new Scene(root, 960, 720);
 		} else {
-			menuScene.setCursor(Cursor.DEFAULT);
 			menuScene.setRoot(root);
 		}
+
+		menuScene.setCursor(Cursor.CROSSHAIR);
 		stage.setScene(menuScene);
 	}
 

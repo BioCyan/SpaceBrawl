@@ -53,9 +53,8 @@ public class GameController {
 
 		paused = false;
 		game.paused = false;
+		game.setCursor(Cursor.CROSSHAIR);
 		stage.setTitle("Space Brawl");
-		//stage.setMaximized(true);
-		mainScene.setCursor(Cursor.NONE);
 		stage.setScene(mainScene);
 		stage.show();
 
