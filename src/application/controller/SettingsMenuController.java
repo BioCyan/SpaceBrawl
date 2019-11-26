@@ -12,28 +12,29 @@ import application.model.GameSettings;
 import application.model.GameSettings.ActionType;
 import java.util.HashMap;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
-public class SettingsMenuController /*implements EventHandler<KeyEvent> */{
+public class SettingsMenuController {
 	@FXML private GridPane grid;
     private HashMap<Button, ActionType> buttons;
     private HashMap<ActionType, Label> labels;
 	private GameSettings settings;
 	private Button changingButton;
 
-	@FXML public void initialize() {
+	@FXML
+	private Slider senSlider;
+	
+	@FXML 
+	public void initialize() {
 		settings = Main.settings;
 
 		buttons = new HashMap<>();
@@ -57,19 +58,17 @@ public class SettingsMenuController /*implements EventHandler<KeyEvent> */{
 			if (row == null) {
 				row = 0;
 			}
-
-			if (column == 1) {
+			if(row == 7)
+				break;
+			else if (column == 1) {
 				labels.put(actions.get(row), (Label)node);
 			} else if (column == 2) {
 				buttons.put((Button)node, actions.get(row));
 			}
+			
 		}
 	}
 
-	/**
-	 * The menuButton Event Handler handles the buttons
-	 * @param event
-	 */
 	public void menuButton(ActionEvent event) {
 		if(changingButton == null) {
 			if (Main.game == null) {
@@ -86,13 +85,6 @@ public class SettingsMenuController /*implements EventHandler<KeyEvent> */{
 		}
 	}
 
-	/**
-	 * The changeButton MouseEvent changes the previous controller label
-	 * to the current value entered.
-	 * The changeButton MouseEvent changes the controllers previous
-	 * control to current value entered for game controller
-	 * @param event
-	 */
 	public void changeButton(MouseEvent event) {
 		if (changingButton != null) {
 			changingButton.setText("Change");
@@ -115,5 +107,11 @@ public class SettingsMenuController /*implements EventHandler<KeyEvent> */{
 				changingButton = null;
 			}
 		});
+	}
+	
+	@FXML
+	public void slide(MouseEvent event) {
+		
+		System.out.println("Slider at:"+ senSlider.getValue());
 	}
 }
