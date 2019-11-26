@@ -66,26 +66,32 @@ public class Game extends SubScene {
 			return;
 		}
 
+		ArrayList<PlasmaBolt> removedShots = new ArrayList<>();
 		for (PlasmaBolt shot : shots) {
 			shot.update(deltaTime);
 
 			for (Rock rock : rocks) {
 				if (shot.checkCollision(rock)) {
 					score += 100;
-					group.getChildren().remove(shot);
+					removedShots.add(shot);
 					rock.explode();
+					break;
 				}
 			}
 		}
+		for (PlasmaBolt shot : removedShots) {
+			shots.remove(shot);
+			group.getChildren().remove(shot);
+		}
 
-		ArrayList<Rock> remove = new ArrayList<>();
+		ArrayList<Rock> removedRocks = new ArrayList<>();
 		for (Rock rock : rocks) {
 			rock.update(deltaTime);
 			if (rock.isDestroyed()) {
-				remove.add(rock);
+				removedRocks.add(rock);
 			}
 		}
-		for (Rock rock : remove) {
+		for (Rock rock : removedRocks) {
 			rocks.remove(rock);
 			group.getChildren().remove(rock);
 		}
