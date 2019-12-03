@@ -10,7 +10,7 @@ public class Star extends Sphere {
 	public Star() {
 		super(1);
 		PhongMaterial material = new PhongMaterial(Color.rgb(255, 192, 96));
-		Image white = new Image(Star.class.getResourceAsStream("/white.png"));
+		Image white = new Image(Star.class.getResourceAsStream("/sun.jpg"));
 		material.setSelfIlluminationMap(white);
 		setMaterial(material);
 	}

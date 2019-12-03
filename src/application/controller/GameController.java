@@ -101,6 +101,6 @@ public class GameController {
 		game.update(deltaTime);
 
 		//updates missile and score count at every update
-		scoreText.setText("Score: " + game.score + "\n Missiles: " + game.shots.size());
+		scoreText.setText("Score: " + game.score + "\n Shots: " + game.shotCount);
 	}
 }

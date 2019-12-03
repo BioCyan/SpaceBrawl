@@ -16,6 +16,7 @@ public class Game extends SubScene {
 	private double pitch;
 
 	public int score;
+	public int shotCount;
 	public boolean paused;
 	public boolean gameOver;
 	public Player player;
@@ -105,6 +106,7 @@ public class Game extends SubScene {
 
 	//The addShot method shoots rockets for when a mouse right click button is clicked
 	public void addShot(PlasmaBolt shot) {
+		shotCount++;
 		shots.add(shot);
 		((Group)getRoot()).getChildren().add(shot);
 	}

@@ -15,7 +15,7 @@ public class GameOverController {
 	 * of shots accumulated through out the game
 	 */
 	@FXML public void initialize() {
-		shotsLabel.setText("Shots: " + Main.game.shots.size());
+		shotsLabel.setText("Shots: " + Main.game.shotCount);
 		scoreLabel.setText("Score: " + Main.game.score);
 	}
 
