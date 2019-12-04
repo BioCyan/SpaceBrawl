@@ -53,8 +53,6 @@ public class GameController {
 	 * The start method is the Event Handle for when button Start is clicked in main menu to go to game scene
 	 */
 	public void start(Stage stage) {
-		//TODO starry background, rock textures, textured star, and laser shape
-
 		paused = false;
 		game.paused = false;
 		game.setCursor(Cursor.CROSSHAIR);
