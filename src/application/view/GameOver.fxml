@@ -1,31 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="960.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.GameOverController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="960.0" style="-fx-background-color: #000;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.GameOverController">
    <children>
-      <Label alignment="CENTER" layoutX="345.0" layoutY="295.0" prefHeight="47.0" prefWidth="270.0" text="Game Over" textFill="WHITE">
+      <ImageView fitHeight="720.0" fitWidth="960.0" pickOnBounds="true">
+         <image>
+            <Image url="@../../104385.jpg" />
+         </image>
+         <viewport>
+            <Rectangle2D height="1080.0" width="1920.0" />
+         </viewport>
+      </ImageView>
+      <Label alignment="CENTER" layoutX="320.0" layoutY="160.0" prefWidth="320.0" text="Game Over">
          <font>
-            <Font size="32.0" />
+            <Font size="40.0" />
          </font>
+         <textFill>
+           <LinearGradient endX="1.0" endY="1.0">
+             <stops>
+               <Stop color="#eff5d0" />
+               <Stop color="#10a803" offset="1.0" />
+             </stops>
+           </LinearGradient>
+         </textFill>
       </Label>
-      <Label fx:id="shotsLabel" alignment="CENTER" layoutX="345.0" layoutY="360.0" prefWidth="270.0" text="Shots: " textFill="WHITE">
+      <Label fx:id="shotsLabel" alignment="CENTER" layoutX="320.0" layoutY="240.0" prefWidth="320.0" text="Shots: ">
          <font>
-            <Font size="18.0" />
+            <Font size="24.0" />
          </font>
+         <textFill>
+           <LinearGradient endX="1.0" endY="1.0">
+             <stops>
+               <Stop color="#eff5d0" />
+               <Stop color="#10a803" offset="1.0" />
+             </stops>
+           </LinearGradient>
+         </textFill>
       </Label>
-      <Label fx:id="scoreLabel" alignment="CENTER" layoutX="345.0" layoutY="390.0" prefWidth="270.0" text="Score: " textFill="WHITE">
+      <Label fx:id="scoreLabel" alignment="CENTER" layoutX="320.0" layoutY="280.0" prefWidth="320.0" text="Score: ">
          <font>
-            <Font size="18.0" />
+            <Font size="24.0" />
          </font>
+         <textFill>
+           <LinearGradient endX="1.0" endY="1.0">
+             <stops>
+               <Stop color="#eff5d0" />
+               <Stop color="#10a803" offset="1.0" />
+             </stops>
+           </LinearGradient>
+         </textFill>
       </Label>
-      <Button layoutX="385.0" layoutY="450.0" mnemonicParsing="false" onAction="#menu" prefHeight="50.0" prefWidth="190.0" text="RETURN TO MENU">
+      <Button blendMode="SCREEN" layoutX="400.0" layoutY="360.0" mnemonicParsing="false" style="-fx-background-color: #8d43ab;" onAction="#menu" prefHeight="40.0" prefWidth="160.0" text="Menu" textFill="#1eff00">
          <font>
-            <Font size="18.0" />
+            <Font size="20.0" />
          </font>
       </Button>
    </children>
-</AnchorPane>
+</Pane>

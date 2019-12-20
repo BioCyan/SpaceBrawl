@@ -56,7 +56,6 @@ public class GameController {
 		paused = false;
 		game.paused = false;
 		game.setCursor(Cursor.CROSSHAIR);
-		stage.setTitle("Space Brawl");
 		stage.setScene(mainScene);
 		stage.show();
 

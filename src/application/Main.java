@@ -42,6 +42,7 @@ public class Main extends Application {
 	public void start(Stage primaryStage) throws IOException {
 		settings = new GameSettings();
 		stage = primaryStage;
+		stage.setTitle("Space Brawl");
 		preloadScenes();
 		switchScene(SceneType.Main);
 		stage.show();
